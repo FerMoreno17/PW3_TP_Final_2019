@@ -1,0 +1,10 @@
+﻿@{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Index";
+    PracticaEF.Data.Usuarios user = new PracticaEF.Data.Usuarios();
+    user = (PracticaEF.Data.Usuarios)Session["session"];
+}
+
+<h2>Vista - Administrador</h2>
+
+<p>@user.Nombre</p>

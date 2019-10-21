@@ -1,0 +1,190 @@
+﻿@{ 
+   PracticaEF.Data.Usuarios user = new PracticaEF.Data.Usuarios();
+   user = (PracticaEF.Data.Usuarios)Session["session"];
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin</title>
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    @Styles.Render("~/Content/admin_css")
+    <!-- Bootstrap core CSS -->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="~/Index/Inicio" class="logo"><b>ADMIN<span>PANEL</span></b></a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <ul class="nav top-menu">
+                    <!-- settings start>
+                    <li class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <i class="fa fa-tasks"></i>
+                        <span class="badge bg-theme">4</span>
+                        </a>
+                      <ul class="dropdown-menu extended tasks-bar">
+                        <div class="notify-arrow notify-arrow-green"></div>
+                        <li>
+                          <p class="green">You have 4 pending tasks</p>
+                        </li>
+                        <li>
+                          <a href="index.html#">
+                            <div class="task-info">
+                              <div class="desc">Dashio Admin Panel</div>
+                              <div class="percent">40%</div>
+                            </div>
+                            <div class="progress progress-striped">
+                              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="index.html#">
+                            <div class="task-info">
+                              <div class="desc">Database Update</div>
+                              <div class="percent">60%</div>
+                            </div>
+                            <div class="progress progress-striped">
+                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                <span class="sr-only">60% Complete (warning)</span>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="index.html#">
+                            <div class="task-info">
+                              <div class="desc">Product Development</div>
+                              <div class="percent">80%</div>
+                            </div>
+                            <div class="progress progress-striped">
+                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                <span class="sr-only">80% Complete</span>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="index.html#">
+                            <div class="task-info">
+                              <div class="desc">Payments Sent</div>
+                              <div class="percent">70%</div>
+                            </div>
+                            <div class="progress progress-striped">
+                              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                <span class="sr-only">70% Complete (Important)</span>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="external">
+                          <a href="#">See All Tasks</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <settings end -->
+
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="SessionFinish">Salir</a></li>
+                </ul>
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <p class="centered"><a href="Perfil/@user.IdUsuario"><img src="~/Images/users/@user.Foto" class="img-circle" width="80"></a></p>
+                    <h5 class="centered">@user.Nombre</h5>
+                    <li class="mt">
+                        <a class="active" href="Index">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-tasks"></i>
+                            <span>Propuestas</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="Propuestas">Mis Propuestas</a></li>
+                            <li><a href="NuevaPropuesta">Crear Propuesta</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="MisDonaciones">
+                            <i class="fa fa-money"></i>
+                            <span>Mis Donaciones </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Perfil/@user.IdUsuario">
+                            <i class="fa fa-envelope"></i>
+                            <span>Perfil </span>
+                        </a>
+                    </li>
+                    <!--li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class=" fa fa-bar-chart-o"></i>
+                            <span>Charts</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="morris.html">Morris</a></li>
+                            <li><a href="chartjs.html">Chartjs</a></li>
+                            <li><a href="flot_chart.html">Flot Charts</a></li>
+                            <li><a href="xchart.html">xChart</a></li>
+                        </ul>
+                    </li-->
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                @RenderBody()
+            </section>
+        </section>
+        <!--main content end-->
+        <!--footer start-->
+        <!--footer class="site-footer">
+          <div class="text-center">
+            <p>
+              &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+            </p>
+
+            <a href="index.html#" class="go-top">
+              <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+        </footer-->
+        <!--footer end-->
+    </section>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/dcjqaccordion")
+    @Scripts.Render("~/bundles/scrollTo")
+    @Scripts.Render("~/bundles/common-scripts")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

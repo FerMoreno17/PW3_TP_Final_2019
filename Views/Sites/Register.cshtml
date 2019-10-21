@@ -1,0 +1,45 @@
+﻿@model PracticaEF.Data.Usuarios
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    ViewBag.Title = "Registrarse";
+}
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center">
+            <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Sites/Register" method="post">
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Nombre, "Nombre")
+                    @Html.TextBoxFor(o => o.Nombre)
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Apellido, "Apellido")
+                    @Html.TextBoxFor(o => o.Apellido)
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.FechaNacimiento, "Fecha Nac.")
+                    @Html.TextBoxFor(o => o.FechaNacimiento, new { type = "date" })
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Email, "E-mail")
+                    @Html.TextBoxFor(o => o.Email, new { type = "email" })
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Password, "Contraseña")
+                    @Html.TextBoxFor(o => o.Password, new { type = "password" })
+                </div>
+                @{ if (ViewBag.Error != "")
+                    {
+                        <div class="text-danger">@ViewBag.Error</div>
+                    }}
+
+                <div class="form-group">
+                    <button type="submit" class="btn gradient-bg mr-2 right">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,34 @@
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\bin\Debug\PracticaEF.Data.dll.config
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\bin\Debug\PracticaEF.Data.dll
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\bin\Debug\PracticaEF.Data.pdb
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.dll
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.xml
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.csprojAssemblyReference.cache
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.csproj.CoreCompileInputs.cache
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.csproj.CopyComplete
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.dll
+C:\Users\laboratorios\source\repos\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.pdb
+E:\PracticaEF\PracticaEF\PracticaEF.Data\bin\Debug\PracticaEF.Data.dll.config
+E:\PracticaEF\PracticaEF\PracticaEF.Data\bin\Debug\PracticaEF.Data.dll
+E:\PracticaEF\PracticaEF\PracticaEF.Data\bin\Debug\PracticaEF.Data.pdb
+E:\PracticaEF\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.dll
+E:\PracticaEF\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.SqlServer.dll
+E:\PracticaEF\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.xml
+E:\PracticaEF\PracticaEF\PracticaEF.Data\bin\Debug\EntityFramework.SqlServer.xml
+E:\PracticaEF\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.csprojAssemblyReference.cache
+E:\PracticaEF\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.csproj.CoreCompileInputs.cache
+E:\PracticaEF\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.csproj.CopyComplete
+E:\PracticaEF\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.dll
+E:\PracticaEF\PracticaEF\PracticaEF.Data\obj\Debug\PracticaEF.Data.pdb
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Debug\PracticaEF.Data.dll.config
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Debug\PracticaEF.Data.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Debug\PracticaEF.Data.pdb
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Debug\EntityFramework.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Debug\EntityFramework.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\obj\Debug\PracticaEF.Data.csproj.CopyComplete
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\obj\Debug\PracticaEF.Data.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\obj\Debug\PracticaEF.Data.pdb

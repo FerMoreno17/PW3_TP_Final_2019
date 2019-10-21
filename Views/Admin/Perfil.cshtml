@@ -1,0 +1,45 @@
+﻿@model PracticaEF.Data.Usuarios
+@{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Perfil";
+}
+
+    <section class="wrapper mt-0 h-100">
+                <div class="row content-panel h-100 justify-content-center">
+                    <div class="col-lg-8 detailed">
+                        <div class="profile-pic">
+                            <p><img src="~/Images/users/@Model.Foto" class="img-circle"></p>
+                        </div>
+                        <h4 class="mb">Datos Personales</h4>
+                        <form action="../PerfilMod" method="post"enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label"> Foto Perfil</label>
+                                <div class="col-lg-6">
+                                    <input type="file" class="btn btn-primary file-pos">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.Nombre, new { @class="col-lg-2 control-label"})
+                                @Html.TextBoxFor(o => o.Nombre, new {@class="form-control"})
+                                @Html.TextBoxFor(o => o.IdUsuario, new { type="hidden"})
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.Apellido, new { @class = "col-lg-2 control-label" })
+                                @Html.TextBoxFor(o => o.Apellido, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.FechaNacimiento,"Fecha Nac.", new { @class = "col-lg-2 control-label" })
+                                @Html.TextBoxFor(o => o.FechaNacimiento, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.Email,"E-mail", new { @class = "col-lg-2 control-label" })
+                                @Html.TextBoxFor(o => o.Email, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-theme" type="submit">Guardar</button>
+                                <a class="btn btn-theme04" href="../Index">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+ </section>

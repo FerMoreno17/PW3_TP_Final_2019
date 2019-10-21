@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PruebaModelStoreContainer" CdmEntityContainer="PruebaEntities1">
+    <EntitySetMapping Name="Club">
+      <EntityTypeMapping TypeName="PruebaModel.Club">
+        <MappingFragment StoreEntitySet="Club">
+          <ScalarProperty Name="IdClub" ColumnName="IdClub" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jugador">
+      <EntityTypeMapping TypeName="PruebaModel.Jugador">
+        <MappingFragment StoreEntitySet="Jugador">
+          <ScalarProperty Name="IdJugador" ColumnName="IdJugador" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="IdClub" ColumnName="IdClub" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
