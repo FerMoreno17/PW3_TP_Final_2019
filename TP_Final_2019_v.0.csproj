@@ -128,12 +128,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SitesController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CrearPropuesta.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\ModificarUsuario.cs" />
+    <Compile Include="Models\Referencia.cs" />
+    <Compile Include="Models\RegistrarUsuario.cs" />
+    <Compile Include="Models\TipoDonacion.cs" />
+    <Compile Include="Models\TipoDonacionHorasTrabajo.cs" />
+    <Compile Include="Models\TipoDonacionInsumos.cs" />
+    <Compile Include="Models\TipoDonacionMonetaria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ImagenesUtility.cs" />
+    <Compile Include="Utilities\StringUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -226,6 +238,7 @@
     <Content Include="fonts\themify.eot" />
     <Content Include="fonts\themify.ttf" />
     <Content Include="fonts\themify.woff" />
+    <Content Include="Images\propuestas\default.jpg" />
     <Content Include="Images\users\default.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -297,10 +310,20 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Admin\CrearPropuesta.cshtml" />
+    <Content Include="Views\Admin\Propuestas.cshtml" />
+    <Content Include="Views\Sites\RespuestaRegistroUsuario.cshtml" />
+    <Content Include="Views\Admin\CargarImagenPrueba.cshtml" />
+    <Content Include="Views\Admin\TipoDonacionMonetaria.cshtml" />
+    <Content Include="Views\Admin\Referencias.cshtml" />
+    <Content Include="Views\Admin\TipoDonacionInsumos.cshtml" />
+    <Content Include="Views\Admin\TipoDonacionHorasTrabajo.cshtml" />
+    <Content Include="Views\Admin\TipoDonacion.cshtml" />
+    <Content Include="Views\Pruebas\Index.cshtml" />
+    <Content Include="Views\Admin\Finished.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -332,6 +355,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

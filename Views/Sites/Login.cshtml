@@ -1,4 +1,4 @@
-﻿@model PracticaEF.Data.Usuarios
+﻿@model Models.Login
 @{
     Layout = "../Shared/_Layout.cshtml";
     ViewBag.Title = "Ingresar";
@@ -10,16 +10,20 @@
                     @Html.AntiForgeryToken()
                     @Html.LabelFor(o => o.Email)
                     @Html.TextBoxFor(o => o.Email)
+                    @Html.ValidationMessageFor(o => o.Email)
                 </div>
                 <div class="form-group">
                     @Html.AntiForgeryToken()
                     @Html.LabelFor(o => o.Password)
-                    @Html.TextBoxFor(o => o.Password, new {type = "password" })
+                    @Html.TextBoxFor(o => o.Password, new { type = "password" })
+                    @Html.ValidationMessageFor(o => o.Password)
+
+                    @{ if (ViewBag.Error != "")
+                        {
+                            <div class="text-danger">@ViewBag.Error</div>
+                        }
+                     }
                 </div>
-                @{ if (ViewBag.Error != "")
-                    {
-                        <div class="text-danger">@ViewBag.Error</div>
-                    }}
                 <div class="form-group">
                     <button type="submit" class="btn gradient-bg mr-2 right">Submit</button>
                 </div>

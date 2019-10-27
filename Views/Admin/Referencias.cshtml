@@ -1,0 +1,51 @@
+﻿@model Models.Referencia
+@{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Referencias";
+}
+
+<div class="container h-100">
+    <div class="row h-100 justify-content-center">
+
+    </div>
+</div>
+<section class="wrapper mt-0 h-100">
+    <div class="row content-panel h-100 justify-content-center">
+        <div class="col-lg-8 detailed">
+            <h4 class="mb">Crear Propuesta / Paso 3/3</h4>
+            <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Admin/Referencias" method="post">
+                @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @ViewBag.IdPropuesta })
+                <h3>Ingresa los datos de tus referentes</h3>
+                <div class="form-group">
+                    <h4>Referencia 1</h4>
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Nombre1, "Nombre")
+                    @Html.TextBoxFor(o => o.Nombre1, new { @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Nombre1)</p>
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Telefono1, "Teléfono")
+                    @Html.TextAreaFor(o => o.Telefono1, new { @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Telefono1)</p>
+                </div>
+                <div class="form-group">
+                    <h4>Referencia 2</h4>>
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Nombre2, "Nombre")
+                    @Html.TextBoxFor(o => o.Nombre2, new { @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Nombre2)</p>
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Telefono2, "Teléfono")
+                    @Html.TextAreaFor(o => o.Telefono2, new { @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Telefono2)</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Finalizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

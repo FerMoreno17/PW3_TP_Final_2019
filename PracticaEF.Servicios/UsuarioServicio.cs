@@ -17,23 +17,14 @@ namespace PracticaEF.Servicios
         public void Agregar(Usuarios u)
           {
             Usuarios user = new Usuarios();
-            user.Nombre =  u.Nombre;
-            user.Apellido = u.Apellido;
             user.FechaNacimiento = u.FechaNacimiento;
             user.Email = u.Email;
-
-            /*byte[] vectoBytes = System.Text.Encoding.UTF8.GetBytes(u.Password);
-            byte[] inArray = crypt.ComputeHash(vectoBytes);
-            crypt.Clear();*/
-
             user.Password = u.Password;
-
-            user.UserName =string.Concat(u.Nombre,u.Apellido);
-            user.TipoUsuario = 1;
-            user.FechaCreacion = DateTime.Now;
+            user.TipoUsuario = 0;
+            user.FechaCreacion = DateTime.Today;
             user.Activo = false;
             user.Foto = "default.jpg";
-            user.Token ="aaaa";
+            user.Token = "soy un token"; // Guid.NewGuid().ToString();
             ctx.Usuarios.Add(user);
             ctx.SaveChanges();
         }
@@ -60,15 +51,34 @@ namespace PracticaEF.Servicios
             return resp;
         }
 
+        public int ValidarEmail(String us)
+        {
+            if (ctx.Usuarios.SingleOrDefault(o => o.Email == us) != null)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int ValidarEdad(DateTime fecha)
+        {
+            int entrada = Convert.ToInt32(fecha.Year);
+            int hoy = Convert.ToInt32(DateTime.Today.Year);
+            int calc = hoy - entrada;
+            if (calc >= 18)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
         public Usuarios getUsuario(Usuarios u)
         {
            var flag = ctx.Usuarios.Single(o => o.Email == u.Email);
             return flag;
-        }
-
-        public void Eliminar(int id)
-        {
-           
         }
 
         public List<Usuarios> ObtenerTodos()
@@ -76,9 +86,5 @@ namespace PracticaEF.Servicios
             return ctx.Usuarios.ToList();
         }
 
-        public void Modifica(Usuarios u)
-        {
-            
-        }
     }
 }

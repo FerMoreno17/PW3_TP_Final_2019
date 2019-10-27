@@ -1,0 +1,15 @@
+﻿@model Models.Login
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<form action="/Pruebas/Index" method="post">
+    @Html.HiddenFor(o => o.Valor, new { @Value = @ViewBag.p })
+    <input type="text" name="Email" value="" />
+
+    <input type="text" name="Password" value="" />
+
+    <input type="submit" name="name" value="enviar" />
+</form>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PracticaEF.Data;
 using System.Security.Cryptography;
+using System.Web;
 
 
 namespace PracticaEF.Servicios
@@ -15,14 +16,9 @@ namespace PracticaEF.Servicios
         private readonly Entities ctx = new Entities();
         public Usuarios BuscarPorId(int id)
         {
-            var resp = ctx.Usuarios.Single(o => o.IdUsuario == id);
-            return resp;
+            return ctx.Usuarios.SingleOrDefault(o => o.IdUsuario == id);
         }
 
-        public void ModificarUsuario(Usuarios u)
-        {
-            
-        }
     }
 }
 

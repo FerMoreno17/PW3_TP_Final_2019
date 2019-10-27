@@ -1,4 +1,4 @@
-﻿@model PracticaEF.Data.Usuarios
+﻿@model Models.RegistrarUsuario
 @{
     Layout = "../Shared/_Layout.cshtml";
     ViewBag.Title = "Registrarse";
@@ -9,37 +9,53 @@
             <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Sites/Register" method="post">
                 <div class="form-group">
                     @Html.AntiForgeryToken()
-                    @Html.LabelFor(o => o.Nombre, "Nombre")
-                    @Html.TextBoxFor(o => o.Nombre)
-                </div>
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    @Html.LabelFor(o => o.Apellido, "Apellido")
-                    @Html.TextBoxFor(o => o.Apellido)
-                </div>
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    @Html.LabelFor(o => o.FechaNacimiento, "Fecha Nac.")
-                    @Html.TextBoxFor(o => o.FechaNacimiento, new { type = "date" })
-                </div>
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
                     @Html.LabelFor(o => o.Email, "E-mail")
                     @Html.TextBoxFor(o => o.Email, new { type = "email" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Email)</p>
                 </div>
                 <div class="form-group">
                     @Html.AntiForgeryToken()
                     @Html.LabelFor(o => o.Password, "Contraseña")
                     @Html.TextBoxFor(o => o.Password, new { type = "password" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Password)</p>
                 </div>
-                @{ if (ViewBag.Error != "")
-                    {
-                        <div class="text-danger">@ViewBag.Error</div>
-                    }}
-
                 <div class="form-group">
-                    <button type="submit" class="btn gradient-bg mr-2 right">Registrar</button>
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Password2, "Confirmar")
+                    @Html.TextBoxFor(o => o.Password2, new { type = "password" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Password2)</p>
                 </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.FechaNacimiento, "Fecha Nac.")
+                    @Html.TextBoxFor(o => o.FechaNacimiento, new { type = "date" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.FechaNacimiento)</p>
+                </div>
+                @{ if (ViewBag.EmailRegistrado != null)
+                    {
+                        <div class="form-group">
+                            <button type="submit" class="btn gradient-bg mr-2 right">Registrar</button>
+                        </div>
+                        <p class="text-danger">@ViewBag.EmailRegistrado</p>
+                    }
+                    else
+                    {
+                        if (ViewBag.MenorDeEdad != null)
+                        {
+                            <div class="form-group">
+                                <button type="submit" class="btn gradient-bg mr-2 right" disabled>Registrar</button>
+                            </div>
+                            <p class="text-danger">@ViewBag.MenorDeEdad</p>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <button type="submit" class="btn gradient-bg mr-2 right">Registrar</button>
+                            </div>
+                        }
+
+                    }
+                }
             </form>
         </div>
     </div>

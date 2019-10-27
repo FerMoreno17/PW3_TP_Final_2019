@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Models;
 
 namespace TP_Final_2019_v._0.Controllers
 {
@@ -34,10 +35,13 @@ namespace TP_Final_2019_v._0.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Usuarios u)
+        public ActionResult Login(Login us)
         {
             if (ModelState.IsValid)
             {
+                Usuarios u = new Usuarios();
+                u.Email = us.Email;
+                u.Password = us.Password;
                 var resp = user.Login(u);
                 if(resp == 1)   
                 {
@@ -62,12 +66,38 @@ namespace TP_Final_2019_v._0.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(Usuarios u)
+        public ActionResult Register(RegistrarUsuario us)
         {
-            if (ModelState.IsValid)
+            int res1 = user.ValidarEmail(us.Email);
+            int res2 = user.ValidarEdad(us.FechaNacimiento);
+            if(res1 == 1)
             {
-                user.Agregar(u);
+                ViewBag.EmailRegistrado = "El e-mail ya existe, elige otro.";
             }
+            else
+            {
+                if (res2 == 0)
+                {
+                    ViewBag.MenorDeEdad = "Eres menor de edad, no puedes registrarte.";
+                }
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        Usuarios u = new Usuarios();
+                        u.Email = us.Email;
+                        u.Password = us.Password;
+                        u.FechaNacimiento = us.FechaNacimiento;
+                        user.Agregar(u);
+                        return RedirectToAction("RespuestaRegistroUsuario");
+                    }
+                }
+            }
+            return View();
+        }
+
+        public ActionResult RespuestaRegistroUsuario()
+        {
             return View();
         }
     }

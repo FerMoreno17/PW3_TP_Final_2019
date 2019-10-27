@@ -1,0 +1,37 @@
+﻿@model Models.TipoDonacionMonetaria
+
+@{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "TipoDonacion";
+}
+
+<div class="container h-100">
+    <div class="row h-100 justify-content-center">
+
+    </div>
+</div>
+<section class="wrapper mt-0 h-100">
+    <div class="row content-panel h-100 justify-content-center">
+        <div class="col-lg-8 detailed">
+            <h4 class="mb">Crear Propuesta / Paso 2/3</h4>
+            <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Admin/TipoDonacionMonetaria" method="post">
+                <h3>Monetaria</h3>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Dinero, "Monto total necesario")
+                    @Html.TextBoxFor(o => o.Dinero, new { @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Dinero)</p>
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.CBU, "CBU")
+                    @Html.TextBoxFor(o => o.CBU, new { @class = "form-control" })
+                   <p class="text-danger">@Html.ValidationMessageFor(o => o.CBU)</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Continuar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
