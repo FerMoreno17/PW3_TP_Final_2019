@@ -64,6 +64,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -321,6 +324,7 @@
     <Content Include="Views\Admin\TipoDonacion.cshtml" />
     <Content Include="Views\Pruebas\Index.cshtml" />
     <Content Include="Views\Admin\Finished.cshtml" />
+    <Content Include="Views\Sites\PropuestaDetalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,7 +333,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Sites\Nosotros.cshtml" />
-    <Content Include="Views\Sites\Causas.cshtml" />
+    <Content Include="Views\Sites\Propuestas.cshtml" />
     <Content Include="Views\Sites\Login.cshtml" />
     <Content Include="Views\Sites\Register.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />

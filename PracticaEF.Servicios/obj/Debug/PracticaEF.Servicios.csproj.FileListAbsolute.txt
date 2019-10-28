@@ -42,3 +42,5 @@ D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Servicios\bin\Debug\EntityFramework.xml
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Servicios\bin\Debug\EntityFramework.SqlServer.xml
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Servicios\obj\Debug\PracticaEF.Servicios.csproj.CopyComplete
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Servicios\bin\Debug\System.ValueTuple.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Servicios\bin\Debug\System.ValueTuple.xml

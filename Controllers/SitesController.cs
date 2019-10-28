@@ -11,8 +11,8 @@ namespace TP_Final_2019_v._0.Controllers
 {
     public class SitesController : Controller
     {
-        UsuarioServicio user = new UsuarioServicio();
-        Entities ctx = new Entities();
+        readonly UsuarioServicio user = new UsuarioServicio();
+        readonly Entities ctx = new Entities();
 
         // GET: AboutUs
         public ActionResult Nosotros()
@@ -21,7 +21,7 @@ namespace TP_Final_2019_v._0.Controllers
             return View();
         }
 
-        public ActionResult Causas()
+        public ActionResult Propuestas()
         {
             ViewBag.EstiloPagina = "single-page causes-page";
             return View();
@@ -47,7 +47,7 @@ namespace TP_Final_2019_v._0.Controllers
                 {
                     var usuario_encontrado = user.getUsuario(u);
                     Session["session"] = usuario_encontrado;
-                    return Redirect("/Admin/Index");
+                    return Redirect("/Index/Inicio");
                 }
                 else
                 {
@@ -99,6 +99,25 @@ namespace TP_Final_2019_v._0.Controllers
         public ActionResult RespuestaRegistroUsuario()
         {
             return View();
+        }
+
+        public ActionResult PropuestaDetalle(int id)
+        {
+            if (Session["session"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var p = (from propuesta in ctx.Propuestas
+                               join usuario in ctx.Usuarios
+                               on propuesta.IdUsuarioCreador equals usuario.IdUsuario
+                               where propuesta.IdPropuesta == id
+                               select propuesta
+                          ).SingleOrDefault();
+                ViewBag.EstiloPagina = "single-page causes-page";
+                return View(p);
+            }
         }
     }
 }

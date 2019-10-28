@@ -70,3 +70,5 @@ D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\EntityFramework.xml
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\EntityFramework.SqlServer.dll
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\EntityFramework.SqlServer.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.ValueTuple.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.ValueTuple.xml

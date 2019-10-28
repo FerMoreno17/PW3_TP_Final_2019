@@ -211,17 +211,17 @@
                                             <img src="~/Images/propuestas/@p.Foto" alt="" style="width: 100%; height: auto;">
 
                                             <div class="figure-overlay d-flex justify-content-center align-items-center position-absolute w-100 h-100">
-                                                <a href="/Sites/DetallePropuesta/@p.IdPropuesta" class="btn gradient-bg mr-2">Donar ahora</a>
+                                                <a href="/Sites/PropuestaDetalle/@p.IdPropuesta" class="btn gradient-bg mr-2">Donar ahora</a>
                                             </div><!-- .figure-overlay -->
                                         </figure>
 
                                         <div class="cause-content-wrap">
                                             <header class="entry-header d-flex flex-wrap align-items-center">
-                                                <h3 class="entry-title w-100 m-0"><a href="/Sites/DetallePropuesta/@p.IdPropuesta">@p.Nombre</a></h3>
+                                                <h3 class="entry-title w-100 m-0"><a href="/Sites/PropuestaDetalle/@p.IdPropuesta">@p.Nombre</a></h3>
                                             </header><!-- .entry-header -->
 
                                             <div class="entry-content">
-                                                <p class="m-0">@p.Descripcion</p>
+                                                <p class="m-0">Creada por: @p.Usuarios.Nombre @p.Usuarios.Apellido</p>
                                             </div><!-- .entry-content -->
 
                                             <div class="fund-raised w-100">
@@ -233,15 +233,19 @@
                                                     <span class="fill" data-percentage="83"></span>
                                                 </div><!-- .fund-raised-bar -->
 
-                                                <div class="fund-raised-details d-flex flex-wrap justify-content-between align-items-center">
+                                                <div class="entry-content">
+                                                    <p class="m-0">Fecha creación: @p.FechaCreacion</p>
+                                                </div><!-- .entry-content -->
+
+                                                <!--div class="fund-raised-details d-flex flex-wrap justify-content-between align-items-center">
                                                     <div class="fund-raised-total mt-4">
                                                         Ya tenemos: $xxxxxx
                                                     </div><!-- .fund-raised-total -->
 
-                                                    <div class="fund-raised-goal mt-4">
+                                                    <!--div class="fund-raised-goal mt-4">
                                                         Necesitamos: $ xxxxxx
-                                                    </div><!-- .fund-raised-goal -->
-                                                </div><!-- .fund-raised-details -->
+                                                    </!--div><!-- .fund-raised-goal -->
+                                                <!--/div><!-- .fund-raised-details -->
                                             </div><!-- .fund-raised -->
                                         </div><!-- .cause-content-wrap -->
                                     </div><!-- .cause-wrap -->
