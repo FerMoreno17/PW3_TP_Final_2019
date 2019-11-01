@@ -58,6 +58,9 @@
     <Compile Include="Denuncias.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DenunciasMotivos.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DonacionesHorasTrabajo.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

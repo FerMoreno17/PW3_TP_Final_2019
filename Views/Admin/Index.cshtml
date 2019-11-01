@@ -5,6 +5,17 @@
     user = (PracticaEF.Data.Usuarios)Session["session"];
 }
 
-<h2>Vista - Administrador</h2>
+    <h2>@user.Nombre</h2>
+@{
+    if (user.TipoUsuario == 1)
+    {
+        <h5>Usuario - Administrador</h5>
+    }
+    else
+    {
+        <h5>Usuario - Normal</h5>
+    }
+}
+<p>@user.UserName - @user.Email</p>
 
-<p>@user.Nombre</p>
+

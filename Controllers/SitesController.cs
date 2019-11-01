@@ -12,6 +12,7 @@ namespace TP_Final_2019_v._0.Controllers
     public class SitesController : Controller
     {
         readonly UsuarioServicio user = new UsuarioServicio();
+        readonly PropuestaServicio prop = new PropuestaServicio();
         readonly Entities ctx = new Entities();
 
         // GET: AboutUs
@@ -89,18 +90,21 @@ namespace TP_Final_2019_v._0.Controllers
                         u.Password = us.Password;
                         u.FechaNacimiento = us.FechaNacimiento;
                         user.Agregar(u);
-                        return RedirectToAction("RespuestaRegistroUsuario");
+                        ViewBag.Mensaje = "Usuario registrado exitosamente.";
+                        return View("Confirmaciones");
                     }
                 }
             }
             return View();
         }
 
-        public ActionResult RespuestaRegistroUsuario()
+        [HttpGet]
+        public ActionResult Confirmaciones()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult PropuestaDetalle(int id)
         {
             if (Session["session"] == null)
@@ -118,6 +122,82 @@ namespace TP_Final_2019_v._0.Controllers
                 ViewBag.EstiloPagina = "single-page causes-page";
                 return View(p);
             }
+        }
+
+        [HttpPost]
+        public ActionResult ValorarPropuesta(FormCollection form)
+        {
+            int id = Convert.ToInt32(form["IdPropuesta"]);
+            prop.ValorarPropuesta(form);
+            return RedirectToAction("/PropuestaDetalle/"+id);
+        }
+
+        [HttpGet]
+        public ActionResult GenerarDonacion(int id)
+        {
+            var p = prop.getPropuesta(id);
+            if (p.TipoDonacion == 1)
+            {
+                var pd = prop.getPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
+                var d = prop.getTotalDonacion(pd, p.TipoDonacion);
+                ViewBag.Propuesta = p;
+                ViewBag.PropuestaDonacion = pd;
+                ViewBag.SumaDonacion = d;
+            }
+            if (p.TipoDonacion == 2) 
+            { 
+            var pd = prop.getPropuestaDonacion(p.TipoDonacion,p.IdPropuesta);
+            var d = prop.getTotalDonacion(pd,p.TipoDonacion);
+            ViewBag.Propuesta = p;
+            ViewBag.PropuestaDonacion = pd;
+            ViewBag.SumaDonacion = d;
+            }
+            if (p.TipoDonacion == 3)
+            {
+                var pd = prop.getPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
+                var d = prop.getTotalDonacion(pd, p.TipoDonacion);
+                ViewBag.Propuesta = p;
+                ViewBag.PropuestaDonacion = pd;
+                ViewBag.SumaDonacion = d;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GenerarDonacion(FormCollection form, HttpPostedFileBase file)
+        {
+            int k = Convert.ToInt32(form["TipoDonacion"]);
+            if (ModelState.IsValid)
+            {
+                int resp = prop.CargarDonacion(k, form, file);
+                if(resp == 1)
+                {
+                    ViewBag.Mensaje = "Donacion recibida, muchas gracias.";
+                    return View("Confirmaciones");
+                }
+            }
+            ViewBag.MotivoError = "Hemos tenido dificultades para registrar su donación.";
+            return View("../Shared/Error");
+        }
+
+        [HttpGet]
+        public ActionResult GenerarDenuncia(int id)
+        {
+            ViewBag.IdPropuesta = id;
+            ViewBag.Motivos = prop.GetMotivos();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GenerarDenuncia(FormCollection form)
+        {
+            if (ModelState.IsValid)
+            {
+                prop.CargarDenuncia(form);
+                ViewBag.Mensaje = "Denuncia cargada, la misma será motivo de revisión. Gracias por tu colaboración.";
+                return View("Confirmaciones");
+            }
+            return View("/Shared/Error");
         }
     }
 }

@@ -12,6 +12,13 @@
     <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="DenunciasMotivos">
+    <Key>
+      <PropertyRef Name="IdMotivo" />
+    </Key>
+    <Property Name="IdMotivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Detalle" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
   <EntityType Name="DonacionesHorasTrabajo">
     <Key>
       <PropertyRef Name="IdDonacionHorasTrabajo" />
@@ -117,8 +124,20 @@
     <Property Name="TipoUsuario" Type="int" Nullable="false" />
     <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Activo" Type="bit" Nullable="false" />
-    <Property Name="Token" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Token" Type="nvarchar" MaxLength="60" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Denuncias_Motivos">
+    <End Role="DenunciasMotivos" Type="Self.DenunciasMotivos" Multiplicity="1" />
+    <End Role="Denuncias" Type="Self.Denuncias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DenunciasMotivos">
+        <PropertyRef Name="IdMotivo" />
+      </Principal>
+      <Dependent Role="Denuncias">
+        <PropertyRef Name="IdMotivo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Denuncias_Propuestas">
     <End Role="Propuestas" Type="Self.Propuestas" Multiplicity="1" />
     <End Role="Denuncias" Type="Self.Denuncias" Multiplicity="*" />
@@ -301,6 +320,7 @@
   </Association>
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="Denuncias" EntityType="Self.Denuncias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DenunciasMotivos" EntityType="Self.DenunciasMotivos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonacionesHorasTrabajo" EntityType="Self.DonacionesHorasTrabajo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonacionesInsumos" EntityType="Self.DonacionesInsumos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonacionesMonetarias" EntityType="Self.DonacionesMonetarias" Schema="dbo" store:Type="Tables" />
@@ -311,6 +331,10 @@
     <EntitySet Name="PropuestasReferencias" EntityType="Self.PropuestasReferencias" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PropuestasValoraciones" EntityType="Self.PropuestasValoraciones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Denuncias_Motivos" Association="Self.FK_Denuncias_Motivos">
+      <End Role="DenunciasMotivos" EntitySet="DenunciasMotivos" />
+      <End Role="Denuncias" EntitySet="Denuncias" />
+    </AssociationSet>
     <AssociationSet Name="FK_Denuncias_Propuestas" Association="Self.FK_Denuncias_Propuestas">
       <End Role="Propuestas" EntitySet="Propuestas" />
       <End Role="Denuncias" EntitySet="Denuncias" />

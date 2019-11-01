@@ -116,6 +116,7 @@ namespace TP_Final_2019_v._0.Controllers
             if (ModelState.IsValid)
             {
                 Propuestas p = new Propuestas();
+                Usuarios u = (Usuarios)Session["session"];
                 
                 if (file != null && file.ContentLength > 0)
                 {
@@ -129,7 +130,7 @@ namespace TP_Final_2019_v._0.Controllers
                     p.TelefonoContacto = cp.TelefonoContacto;
                     p.TipoDonacion = cp.TipoDonacion;
                     p.Foto = fileName;
-                    p.IdUsuarioCreador = cp.IdUsuarioCreador;
+                    p.IdUsuarioCreador = u.IdUsuario;
                     p.Valoracion = 0;
                     p.Estado = 1;
                     p.FechaCreacion = DateTime.Today;
@@ -150,11 +151,9 @@ namespace TP_Final_2019_v._0.Controllers
                         return View("TipoDonacionHorasTrabajo");
                     }
                 }
-                ViewBag.MotivoError = "No se hemos podido crear la propuesta";
-                return View("../Shared/Error");
+                return View();
             }
-            ViewBag.MotivoError = "El formato de modelo no es válido";
-            return View("../Shared/Error");
+            return View();
         } 
        
         

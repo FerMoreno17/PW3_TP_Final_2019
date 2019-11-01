@@ -17,7 +17,7 @@ namespace PracticaEF.Data
         public int IdDonacionMonetaria { get; set; }
         public int IdPropuestaDonacionMonetaria { get; set; }
         public int IdUsuario { get; set; }
-        public decimal Dinero { get; set; }
+        public decimal  Dinero { get; set; }
         public string ArchivoTransferencia { get; set; }
         public System.DateTime FechaCreacion { get; set; }
     

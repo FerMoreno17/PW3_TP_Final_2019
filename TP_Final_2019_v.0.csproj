@@ -62,6 +62,7 @@
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -138,6 +139,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CrearPropuesta.cs" />
+    <Compile Include="Models\Denuncia.cs" />
+    <Compile Include="Models\Donacion.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ModificarUsuario.cs" />
     <Compile Include="Models\Referencia.cs" />
@@ -315,7 +318,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\CrearPropuesta.cshtml" />
     <Content Include="Views\Admin\Propuestas.cshtml" />
-    <Content Include="Views\Sites\RespuestaRegistroUsuario.cshtml" />
     <Content Include="Views\Admin\CargarImagenPrueba.cshtml" />
     <Content Include="Views\Admin\TipoDonacionMonetaria.cshtml" />
     <Content Include="Views\Admin\Referencias.cshtml" />
@@ -325,9 +327,13 @@
     <Content Include="Views\Pruebas\Index.cshtml" />
     <Content Include="Views\Admin\Finished.cshtml" />
     <Content Include="Views\Sites\PropuestaDetalle.cshtml" />
+    <Content Include="Views\Sites\GenerarDonacion.cshtml" />
+    <Content Include="Views\Sites\GenerarDenuncia.cshtml" />
+    <Content Include="Views\Sites\Confirmaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\donaciones\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

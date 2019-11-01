@@ -1,0 +1,30 @@
+﻿@model Models.Denuncia
+@{
+    ViewBag.Title = "GenerarDenuncia";
+    PracticaEF.Data.Usuarios u = (PracticaEF.Data.Usuarios) Session["session"];
+}
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center">
+            <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Sites/GenerarDenuncia" method="post">
+                <div class="form-group">
+                    @Html.HiddenFor(o => o.IdPropuesta, new {@Value = ViewBag.IdPropuesta })
+                    @Html.HiddenFor(o => o.IdUsuario, new { @Value = @u.IdUsuario })
+                    @Html.LabelFor(o => o.IdMotivo, "Selecciona un motivo")
+                    <select name="IdMotivo" class="form-control">
+                        @foreach (PracticaEF.Data.DenunciasMotivos dm in (List<PracticaEF.Data.DenunciasMotivos>)ViewBag.Motivos)
+                        {
+                            <option value="@dm.IdMotivo">@dm.Detalle</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Comentarios, "Ingresa tu comentario")
+                    @Html.TextAreaFor(o => o.Comentarios, new { type = "text", @class = "form-control", @rows = 10})
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Comentarios)</p>
+                </div>
+                <button type="submit" class="btn gradient-bg mr-2 right">Generar denuncia</button>
+            </form>
+        </div>
+    </div>

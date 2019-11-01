@@ -22,6 +22,7 @@ namespace PracticaEF.Data
         public System.DateTime FechaCreacion { get; set; }
         public int Estado { get; set; }
     
+        public virtual DenunciasMotivos DenunciasMotivos { get; set; }
         public virtual Propuestas Propuestas { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }

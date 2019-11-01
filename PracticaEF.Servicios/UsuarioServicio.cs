@@ -24,7 +24,7 @@ namespace PracticaEF.Servicios
             user.FechaCreacion = DateTime.Today;
             user.Activo = false;
             user.Foto = "default.jpg";
-            user.Token = "soy un token"; // Guid.NewGuid().ToString();
+            user.Token = Guid.NewGuid().ToString();
             ctx.Usuarios.Add(user);
             ctx.SaveChanges();
         }

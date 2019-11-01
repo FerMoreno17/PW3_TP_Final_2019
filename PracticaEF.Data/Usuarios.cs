@@ -11,7 +11,7 @@ namespace PracticaEF.Data
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Usuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,7 +33,6 @@ namespace PracticaEF.Data
         public string Email { get; set; }
         public string Password { get; set; }
         public string Foto { get; set; }
-
         public int TipoUsuario { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public bool Activo { get; set; }

@@ -1,0 +1,11 @@
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Release\PracticaEF.Data.dll.config
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Release\PracticaEF.Data.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Release\PracticaEF.Data.pdb
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Release\EntityFramework.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Release\EntityFramework.SqlServer.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Release\EntityFramework.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\bin\Release\EntityFramework.SqlServer.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\obj\Release\PracticaEF.Data.csprojAssemblyReference.cache
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\obj\Release\PracticaEF.Data.csproj.CopyComplete
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\obj\Release\PracticaEF.Data.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\PracticaEF.Data\obj\Release\PracticaEF.Data.pdb

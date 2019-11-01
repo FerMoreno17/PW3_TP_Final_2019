@@ -11,8 +11,7 @@ namespace PracticaEF.Data
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
-
+    
     public partial class Propuestas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -51,10 +50,5 @@ namespace PracticaEF.Data
         public virtual ICollection<PropuestasReferencias> PropuestasReferencias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PropuestasValoraciones> PropuestasValoraciones { get; set; }
-
-        public static implicit operator DbSet<object>(Propuestas v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

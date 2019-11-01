@@ -14,6 +14,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DenunciasMotivos">
+      <EntityTypeMapping TypeName="Model.DenunciasMotivos">
+        <MappingFragment StoreEntitySet="DenunciasMotivos">
+          <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="DonacionesHorasTrabajo">
       <EntityTypeMapping TypeName="Model.DonacionesHorasTrabajo">
         <MappingFragment StoreEntitySet="DonacionesHorasTrabajo">

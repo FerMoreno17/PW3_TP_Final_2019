@@ -1,0 +1,146 @@
+﻿@model Models.Donacion
+@{
+    ViewBag.Title = "Generar Donación";
+    PracticaEF.Data.Usuarios u = (PracticaEF.Data.Usuarios)Session["session"];
+}
+
+<div class="container h-100">
+    <div class="row h-100 justify-content-center">
+        <div class="container mb-3">
+            <h3 class="bg-light p-3">Propuesta:</h3>
+            <h4 class="p-3 text-success">@ViewBag.Propuesta.Nombre</h4>
+        </div>
+
+        @{
+            if (@ViewBag.Propuesta.TipoDonacion == 1)
+            {
+                <table class="table col-sm-12  col-md-8 text-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Necesitamos</th>
+                            <th>Cantidad recolectada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>@ViewBag.PropuestaDonacion.Dinero</td>
+                            <td>@ViewBag.SumaDonacion</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Sites/GenerarDonacion" method="post" enctype="multipart/form-data">
+                    @Html.HiddenFor(o => o.TipoDonacion, new { @Value = @ViewBag.Propuesta.TipoDonacion })
+                    @Html.HiddenFor(o => o.IdUsuario, new { @Value = u.IdUsuario })
+                    @Html.HiddenFor(o => o.IdPropuestaDonacionMonetaria, new { @Value = @ViewBag.PropuestaDonacion.IdPropuestaDonacionMonetaria })
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.Dinero, "Ingrese el monto donado")
+                        @Html.TextBoxFor(o => o.Dinero, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.Dinero)</p>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="file" value="" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn gradient-bg mr-2 right">Donar</button>
+                    </div>
+                </form>
+            }
+            if (@ViewBag.Propuesta.TipoDonacion == 2)
+            {
+                int a = @ViewBag.PropuestaDonacion.Cantidad;
+                int b = @ViewBag.SumaDonacion;
+                int total = a - b;
+                <table class="table col-sm-12  col-md-8">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Cód. #</th>
+                            <th>Insumo necesario</th>
+                            <th>Necesitamos</th>
+                            <th>Cantidad recolectada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (@a == @b)
+                        {
+                            <tr class="table-danger text-center">
+                                <td><del>@ViewBag.PropuestaDonacion.IdPropuestaDonacionInsumo</del></td>
+                                <td><del>@ViewBag.PropuestaDonacion.Nombre</del></td>
+                                <td><del>@ViewBag.PropuestaDonacion.Cantidad</del></td>
+                                <td><del>@ViewBag.SumaDonacion</del></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="text-center">
+                                <td>@ViewBag.PropuestaDonacion.IdPropuestaDonacionInsumo</td>
+                                <td>@ViewBag.PropuestaDonacion.Nombre</td>
+                                <td>@ViewBag.PropuestaDonacion.Cantidad</td>
+                                <td>@ViewBag.SumaDonacion</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Sites/GenerarDonacion" method="post">
+                    <div class="form-group">
+                        @Html.HiddenFor(o => o.TipoDonacion, new { @Value = @ViewBag.Propuesta.TipoDonacion })
+                        @Html.HiddenFor(o => o.IdUsuario, new { @Value = u.IdUsuario })
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.IdPropuestaDonacionInsumo, "Ingrese el código del insumo")
+                        @Html.TextBoxFor(o => o.IdPropuestaDonacionInsumo, new { type = "number", @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.IdPropuestaDonacionInsumo)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.Cantidad, "Ingrese la Cantidad")
+                        @Html.TextBoxFor(o => o.Cantidad, new { type = "number", @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.Cantidad)</p>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn gradient-bg mr-2 right">Donar</button>
+                    </div>
+                </form>
+            }
+
+            if (@ViewBag.Propuesta.TipoDonacion == 3)
+            {
+                int a = @ViewBag.PropuestaDonacion.CantidadHoras;
+                int b = @ViewBag.SumaDonacion;
+                int faltan = a - b;
+                <table class="table col-sm-12  col-md-8 text-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Profesión</th>
+                            <th>Necesitamos</th>
+                            <th>Horas donadas</th>
+                            <th>Faltan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>@ViewBag.PropuestaDonacion.Profesion</td>
+                            <td>@ViewBag.PropuestaDonacion.CantidadHoras Hs.</td>
+                            <td>@ViewBag.SumaDonacion</td>
+                            <td>@faltan Hs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Sites/GenerarDonacion" method="post" enctype="multipart/form-data">
+                    @Html.HiddenFor(o => o.TipoDonacion, new { @Value = @ViewBag.Propuesta.TipoDonacion })
+                    @Html.HiddenFor(o => o.IdUsuario, new { @Value = u.IdUsuario })
+                    @Html.HiddenFor(o => o.IdPropuestaDonacionHorasTrabajo, new { @Value = @ViewBag.PropuestaDonacion.IdPropuestaDonacionHorasTrabajo })
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.Cantidad, "Horas que voy a donar")
+                        @Html.TextBoxFor(o => o.Cantidad, new { type="number", @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.Cantidad)</p>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn gradient-bg mr-2 right">Donar</button>
+                    </div>
+                </form>
+            }
+        }
+    </div>
+</div>

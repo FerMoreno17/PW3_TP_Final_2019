@@ -26,6 +26,7 @@ namespace PracticaEF.Data
         }
     
         public virtual DbSet<Denuncias> Denuncias { get; set; }
+        public virtual DbSet<DenunciasMotivos> DenunciasMotivos { get; set; }
         public virtual DbSet<DonacionesHorasTrabajo> DonacionesHorasTrabajo { get; set; }
         public virtual DbSet<DonacionesInsumos> DonacionesInsumos { get; set; }
         public virtual DbSet<DonacionesMonetarias> DonacionesMonetarias { get; set; }

@@ -17,6 +17,13 @@
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="DenunciasMotivos">
+          <Key>
+            <PropertyRef Name="IdMotivo" />
+          </Key>
+          <Property Name="IdMotivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Detalle" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="DonacionesHorasTrabajo">
           <Key>
             <PropertyRef Name="IdDonacionHorasTrabajo" />
@@ -122,8 +129,20 @@
           <Property Name="TipoUsuario" Type="int" Nullable="false" />
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
-          <Property Name="Token" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="60" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Denuncias_Motivos">
+          <End Role="DenunciasMotivos" Type="Self.DenunciasMotivos" Multiplicity="1" />
+          <End Role="Denuncias" Type="Self.Denuncias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DenunciasMotivos">
+              <PropertyRef Name="IdMotivo" />
+            </Principal>
+            <Dependent Role="Denuncias">
+              <PropertyRef Name="IdMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Denuncias_Propuestas">
           <End Role="Propuestas" Type="Self.Propuestas" Multiplicity="1" />
           <End Role="Denuncias" Type="Self.Denuncias" Multiplicity="*" />
@@ -306,6 +325,7 @@
         </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Denuncias" EntityType="Self.Denuncias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DenunciasMotivos" EntityType="Self.DenunciasMotivos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonacionesHorasTrabajo" EntityType="Self.DonacionesHorasTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonacionesInsumos" EntityType="Self.DonacionesInsumos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonacionesMonetarias" EntityType="Self.DonacionesMonetarias" Schema="dbo" store:Type="Tables" />
@@ -316,6 +336,10 @@
           <EntitySet Name="PropuestasReferencias" EntityType="Self.PropuestasReferencias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PropuestasValoraciones" EntityType="Self.PropuestasValoraciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Denuncias_Motivos" Association="Self.FK_Denuncias_Motivos">
+            <End Role="DenunciasMotivos" EntitySet="DenunciasMotivos" />
+            <End Role="Denuncias" EntitySet="Denuncias" />
+          </AssociationSet>
           <AssociationSet Name="FK_Denuncias_Propuestas" Association="Self.FK_Denuncias_Propuestas">
             <End Role="Propuestas" EntitySet="Propuestas" />
             <End Role="Denuncias" EntitySet="Denuncias" />
@@ -393,8 +417,17 @@
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DenunciasMotivos" Relationship="Self.FK_Denuncias_Motivos" FromRole="Denuncias" ToRole="DenunciasMotivos" />
           <NavigationProperty Name="Propuestas" Relationship="Self.FK_Denuncias_Propuestas" FromRole="Denuncias" ToRole="Propuestas" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Denuncias_Usuarios" FromRole="Denuncias" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="DenunciasMotivos">
+          <Key>
+            <PropertyRef Name="IdMotivo" />
+          </Key>
+          <Property Name="IdMotivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detalle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Denuncias" Relationship="Self.FK_Denuncias_Motivos" FromRole="DenunciasMotivos" ToRole="Denuncias" />
         </EntityType>
         <EntityType Name="DonacionesHorasTrabajo">
           <Key>
@@ -523,7 +556,7 @@
           <Property Name="TipoUsuario" Type="Int32" Nullable="false" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="Token" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Denuncias" Relationship="Self.FK_Denuncias_Usuarios" FromRole="Usuarios" ToRole="Denuncias" />
           <NavigationProperty Name="DonacionesHorasTrabajo" Relationship="Self.FK_DonacionesHorasTrabajo_Usuarios" FromRole="Usuarios" ToRole="DonacionesHorasTrabajo" />
           <NavigationProperty Name="DonacionesInsumos" Relationship="Self.FK_DonacionesInsumos_Usuarios" FromRole="Usuarios" ToRole="DonacionesInsumos" />
@@ -531,6 +564,18 @@
           <NavigationProperty Name="Propuestas" Relationship="Self.FK_Propuestas_Usuarios" FromRole="Usuarios" ToRole="Propuestas" />
           <NavigationProperty Name="PropuestasValoraciones" Relationship="Self.FK_PropuestasValoraciones_Usuarios" FromRole="Usuarios" ToRole="PropuestasValoraciones" />
         </EntityType>
+        <Association Name="FK_Denuncias_Motivos">
+          <End Role="DenunciasMotivos" Type="Self.DenunciasMotivos" Multiplicity="1" />
+          <End Role="Denuncias" Type="Self.Denuncias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DenunciasMotivos">
+              <PropertyRef Name="IdMotivo" />
+            </Principal>
+            <Dependent Role="Denuncias">
+              <PropertyRef Name="IdMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Denuncias_Propuestas">
           <End Role="Propuestas" Type="Self.Propuestas" Multiplicity="1" />
           <End Role="Denuncias" Type="Self.Denuncias" Multiplicity="*" />
@@ -713,6 +758,7 @@
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Denuncias" EntityType="Self.Denuncias" />
+          <EntitySet Name="DenunciasMotivos" EntityType="Self.DenunciasMotivos" />
           <EntitySet Name="DonacionesHorasTrabajo" EntityType="Self.DonacionesHorasTrabajo" />
           <EntitySet Name="DonacionesInsumos" EntityType="Self.DonacionesInsumos" />
           <EntitySet Name="DonacionesMonetarias" EntityType="Self.DonacionesMonetarias" />
@@ -723,6 +769,10 @@
           <EntitySet Name="PropuestasReferencias" EntityType="Self.PropuestasReferencias" />
           <EntitySet Name="PropuestasValoraciones" EntityType="Self.PropuestasValoraciones" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_Denuncias_Motivos" Association="Self.FK_Denuncias_Motivos">
+            <End Role="DenunciasMotivos" EntitySet="DenunciasMotivos" />
+            <End Role="Denuncias" EntitySet="Denuncias" />
+          </AssociationSet>
           <AssociationSet Name="FK_Denuncias_Propuestas" Association="Self.FK_Denuncias_Propuestas">
             <End Role="Propuestas" EntitySet="Propuestas" />
             <End Role="Denuncias" EntitySet="Denuncias" />
@@ -800,6 +850,14 @@
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DenunciasMotivos">
+            <EntityTypeMapping TypeName="Model.DenunciasMotivos">
+              <MappingFragment StoreEntitySet="DenunciasMotivos">
+                <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
