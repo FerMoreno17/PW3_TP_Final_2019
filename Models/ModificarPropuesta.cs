@@ -33,9 +33,9 @@ namespace Models
         public int CantidadHoras { get; set; }
         public string Profesion { get; set; }
 
-        public int IdReferencia { get; set; }
-        public string NombreRef { get; set; }
-        public string TelefonoRef { get; set; }
+        public int IdReferencia1 { get; set; }
+        public string NombreRef1 { get; set; }
+        public string TelefonoRef1 { get; set; }
 
         public int IdReferencia2 { get; set; }
         public string NombreRef2 { get; set; }

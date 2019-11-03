@@ -30,7 +30,7 @@ namespace TP_Final_2019_v._0.Controllers
 
             }
         }
-        
+  /*-------------------Perfil---------------------------*/      
         [HttpGet]
         public ActionResult Perfil(int id)
         {
@@ -44,7 +44,6 @@ namespace TP_Final_2019_v._0.Controllers
                 return View();
             }
         }
-
         [HttpPost]
         public ActionResult Perfil(ModificarUsuario recibido, HttpPostedFileBase file)
         {
@@ -81,7 +80,7 @@ namespace TP_Final_2019_v._0.Controllers
             ViewBag.MotivoError = "El formato de modelo no es válido.";
             return View("/Shared/Error");
         }
-
+/*-------------------Crear Propuesta---------------------------*/
         [HttpGet]
         public ActionResult CrearPropuesta()
         {
@@ -95,7 +94,6 @@ namespace TP_Final_2019_v._0.Controllers
                 return View();
             }
         }
-
         [HttpPost]
         public ActionResult CrearPropuesta(CrearPropuesta cp, HttpPostedFileBase file)
         {
@@ -142,75 +140,6 @@ namespace TP_Final_2019_v._0.Controllers
             }
             return View();
         }
-
-        public ActionResult Propuestas()
-        {
-            if (Session["session"] == null)
-            {
-                return RedirectToAction("../Index/Inicio");
-            }
-            else
-            {
-                Usuarios u = (Usuarios)Session["session"];
-                List<Propuestas> lista = admin.getMisPropuestas(u.IdUsuario);
-                ViewBag.EstiloPagina = "single-page causes-page";
-                return View(lista);
-            }
-        }
-
-        [HttpGet]
-        public ActionResult VerDonacionesPropuesta(int id)
-        {
-            var p = admin.getPropuesta(id);
-            ViewBag.Propuesta = p;
-            if(p.TipoDonacion == 1)
-            {
-                var tp =(PropuestasDonacionesMonetarias) admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
-                var don =(List<DonacionesMonetarias>) admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionMonetaria);
-                ViewBag.Propuesta = p;
-                ViewBag.TipoPropuesta = tp;
-                return View("VerDonacionesPropuestaMonetaria",don);
-            }
-            if (p.TipoDonacion == 2)
-            {
-                var tp = (PropuestasDonacionesInsumos)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
-                var don = (List<DonacionesInsumos>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionInsumo);
-                ViewBag.Propuesta = p;
-                ViewBag.TipoPropuesta = tp;
-                return View("VerDonacionesPropuestaInsumos", don);
-            }
-            if (p.TipoDonacion == 3)
-            {
-                var tp = (PropuestasDonacionesHorasTrabajo)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
-                var don = (List<DonacionesHorasTrabajo>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionHorasTrabajo);
-                ViewBag.Propuesta = p;
-                ViewBag.TipoPropuesta = tp;
-                return View("VerDonacionesPropuestaHorasTrabajo", don);
-            }
-            return View("../Shared/Error.cshtml");
-        }
-
-        [HttpGet]
-        public ActionResult ModificarPropuesta(int id)
-        {
-            var p = prop.getPropuesta(id);
-            if(p.TipoDonacion == 1)
-            {
-                var tp = (PropuestasDonacionesMonetarias) prop.getPropuestaDonacion(id, p.TipoDonacion);
-            }
-            if (p.TipoDonacion == 2)
-            {
-                var tp = (PropuestasDonacionesInsumos)prop.getPropuestaDonacion(id, p.TipoDonacion);
-            }
-            if (p.TipoDonacion == 3)
-            {
-                var tp = (PropuestasDonacionesHorasTrabajo)prop.getPropuestaDonacion(id, p.TipoDonacion);
-            }
-            var referencias = prop.GetReferencias(p.IdPropuesta);
-            ModificarPropuesta mp = new ModificarPropuesta();
-            return View();
-        }
-
         /*[HttpPost]
         public ActionResult CrearPropuesta(CrearPropuesta cp, HttpPostedFileBase file)
         {
@@ -271,7 +200,6 @@ namespace TP_Final_2019_v._0.Controllers
                 }
             return "error: " + td.Td + "string: " + td.ValorString + "valor: " + td.ValorInt;
         }*/
-
         [HttpGet]
         public ActionResult TipoDonacionMonetaria()
         {
@@ -284,7 +212,6 @@ namespace TP_Final_2019_v._0.Controllers
                 return View();
             }
         }
-
         [HttpPost]
         public ActionResult TipoDonacionMonetaria(TipoDonacionMonetaria td)
         {
@@ -306,7 +233,6 @@ namespace TP_Final_2019_v._0.Controllers
             }
             return View();
         }
-
         [HttpGet]
         public ActionResult TipoDonacionInsumos()
         {
@@ -320,7 +246,6 @@ namespace TP_Final_2019_v._0.Controllers
 
             }
         }
-
         [HttpPost]
         public ActionResult TipoDonacionInsumos(TipoDonacionInsumos td)
         {
@@ -342,7 +267,6 @@ namespace TP_Final_2019_v._0.Controllers
             return View();
 
         }
-       
         [HttpGet]
         public ActionResult TipoDonacionHorasTrabajo()
         {
@@ -355,7 +279,6 @@ namespace TP_Final_2019_v._0.Controllers
                 return View();
             }
         }
-        
         [HttpPost]
         public ActionResult TipoDonacionHorasTrabajo(TipoDonacionHorasTrabajo td)
         {
@@ -376,7 +299,6 @@ namespace TP_Final_2019_v._0.Controllers
             }
             return View();
         }
-
         [HttpGet]
         public ActionResult Referencias()
         {
@@ -389,7 +311,6 @@ namespace TP_Final_2019_v._0.Controllers
                 return View();
             }
         }
-
         [HttpPost]
         public ActionResult Referencias(Referencia r)
         {
@@ -410,6 +331,242 @@ namespace TP_Final_2019_v._0.Controllers
             ViewBag.Mensaje = "Propuesta cargada exitosamente";
             return View("Finished");
         }
+/*-------------------Ver Propuesta y donaciones---------------------------*/
+        public ActionResult Propuestas()
+        {
+            if (Session["session"] == null)
+            {
+                return RedirectToAction("../Index/Inicio");
+            }
+            else
+            {
+                Usuarios u = (Usuarios)Session["session"];
+                List<Propuestas> lista = admin.getMisPropuestas(u.IdUsuario);
+                ViewBag.EstiloPagina = "single-page causes-page";
+                return View(lista);
+            }
+        }
+        [HttpGet]
+        public ActionResult VerDonacionesPropuesta(int id)
+        {
+            var p = admin.getPropuesta(id);
+            ViewBag.Propuesta = p;
+            if (p.TipoDonacion == 1)
+            {
+                var tp = (PropuestasDonacionesMonetarias)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesMonetarias>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionMonetaria);
+                ViewBag.Propuesta = p;
+                ViewBag.TipoPropuesta = tp;
+                return View("VerDonacionesPropuestaMonetaria", don);
+            }
+            if (p.TipoDonacion == 2)
+            {
+                var tp = (PropuestasDonacionesInsumos)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesInsumos>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionInsumo);
+                ViewBag.Propuesta = p;
+                ViewBag.TipoPropuesta = tp;
+                return View("VerDonacionesPropuestaInsumos", don);
+            }
+            if (p.TipoDonacion == 3)
+            {
+                var tp = (PropuestasDonacionesHorasTrabajo)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesHorasTrabajo>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionHorasTrabajo);
+                ViewBag.Propuesta = p;
+                ViewBag.TipoPropuesta = tp;
+                return View("VerDonacionesPropuestaHorasTrabajo", don);
+            }
+            return View("../Shared/Error.cshtml");
+        }
+/*-------------------Modificar propuesta---------------------------*/
+        [HttpGet]
+        public ActionResult ModificarPropuesta(int id)
+        {
+            var p = prop.getPropuesta(id);
+            if (p.TipoDonacion == 1)
+            {
+                var tp = (PropuestasDonacionesMonetarias)prop.getPropuestaDonacion(id, p.TipoDonacion);
+                var r = prop.GetReferencias(p.IdPropuesta);
+                ModificarPropuesta mp = new ModificarPropuesta();
+                mp.IdPropuesta = tp.IdPropuesta;
+                mp.Nombre = p.Nombre;
+                mp.Descripcion = p.Descripcion;
+                mp.FechaFin = p.FechaFin;
+                mp.TelefonoContacto = p.TelefonoContacto;
+                mp.TipoDonacion = p.TipoDonacion;
+                mp.Foto = p.Foto;
+                mp.IdPropuestaDonacionMonetaria = tp.IdPropuestaDonacionMonetaria;
+                mp.Dinero = tp.Dinero;
+                mp.CBU = tp.CBU;
+                int i = 1;
+                foreach (var x in r)
+                {
+                    if (i == 1)
+                    {
+                        mp.IdReferencia1 = x.IdReferencia;
+                        mp.NombreRef1 = x.Nombre;
+                        mp.TelefonoRef1 = x.Telefono;
+                    }
+                    if (i == 2)
+                    {
+                        mp.IdReferencia2 = x.IdReferencia;
+                        mp.NombreRef2 = x.Nombre;
+                        mp.TelefonoRef2 = x.Telefono;
+                    }
+                    i++;
+                }
+                return View(mp);
+            }
+            if (p.TipoDonacion == 2)
+            {
+                var tp = (PropuestasDonacionesInsumos)prop.getPropuestaDonacion(id, p.TipoDonacion);
+                var r = prop.GetReferencias(p.IdPropuesta);
+                ModificarPropuesta mp = new ModificarPropuesta();
+                mp.IdPropuesta = tp.IdPropuesta;
+                mp.Nombre = p.Nombre;
+                mp.Descripcion = p.Descripcion;
+                mp.FechaFin = p.FechaFin;
+                mp.TelefonoContacto = p.TelefonoContacto;
+                mp.TipoDonacion = p.TipoDonacion;
+                mp.Foto = p.Foto;
+                mp.IdPropuestaDonacionInsumo = tp.IdPropuestaDonacionInsumo;
+                mp.NombreItem = tp.Nombre;
+                mp.Cantidad = tp.Cantidad;
+                int i = 1;
+                foreach (var x in r)
+                {
+                    if (i == 1)
+                    {
+                        mp.IdReferencia1 = x.IdReferencia;
+                        mp.NombreRef1 = x.Nombre;
+                        mp.TelefonoRef1 = x.Telefono;
+                    }
+                    if (i == 2)
+                    {
+                        mp.IdReferencia2 = x.IdReferencia;
+                        mp.NombreRef2 = x.Nombre;
+                        mp.TelefonoRef2 = x.Telefono;
+                    }
+                    i++;
+                }
+                return View(mp);
+            }
+            if (p.TipoDonacion == 3)
+            {
+                var tp = (PropuestasDonacionesHorasTrabajo)prop.getPropuestaDonacion(id, p.TipoDonacion);
+                var r = prop.GetReferencias(p.IdPropuesta);
+                ModificarPropuesta mp = new ModificarPropuesta();
+                mp.IdPropuesta = tp.IdPropuesta;
+                mp.Nombre = p.Nombre;
+                mp.Descripcion = p.Descripcion;
+                mp.FechaFin = p.FechaFin;
+                mp.TelefonoContacto = p.TelefonoContacto;
+                mp.TipoDonacion = p.TipoDonacion;
+                mp.Foto = p.Foto;
+                mp.IdPropuestaDonacionHorasTrabajo = tp.IdPropuestaDonacionHorasTrabajo;
+                mp.CantidadHoras = tp.CantidadHoras;
+                mp.Profesion = tp.Profesion;
+                int i = 1;
+                foreach (var x in r)
+                {
+                    if (i == 1)
+                    {
+                        mp.IdReferencia1 = x.IdReferencia;
+                        mp.NombreRef1 = x.Nombre;
+                        mp.TelefonoRef1 = x.Telefono;
+                    }
+                    if (i == 2)
+                    {
+                        mp.IdReferencia2 = x.IdReferencia;
+                        mp.NombreRef2 = x.Nombre;
+                        mp.TelefonoRef2 = x.Telefono;
+                    }
+                    i++;
+                }
+                return View(mp);
+            }
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ModificarPropuesta(ModificarPropuesta mp,HttpPostedFileBase file)
+        {
+                Propuestas p = ctx.Propuestas.Find(mp.IdPropuesta);    
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Images/propuestas"), fileName);
+                    file.SaveAs(path);
+                    p.Foto = fileName;
+                }
+                p.Nombre = mp.Nombre;
+                p.Descripcion = mp.Descripcion;
+                if(mp.FechaFin.ToString() != "1/1/0001 00:00:00")
+                {
+                    p.FechaFin = mp.FechaFin;
+                }
+                p.TelefonoContacto = mp.TelefonoContacto;
+                ctx.SaveChanges();
+
+                return RedirectToAction("ModificarPropuesta");
+        }
+        [HttpPost]
+        public ActionResult ModificarPropuestaMonetaria(ModificarPropuesta mp)
+        {
+            PropuestasDonacionesMonetarias p = ctx.PropuestasDonacionesMonetarias.Find(mp.IdPropuestaDonacionMonetaria);
+            p.Dinero = mp.Dinero;
+            p.CBU = mp.CBU;
+            ctx.SaveChanges();
+            return RedirectToAction("ModificarPropuesta/"+mp.IdPropuesta);
+        }
+        [HttpPost]
+        public ActionResult ModificarPropuestaInsumos(ModificarPropuesta mp)
+        {
+            PropuestasDonacionesInsumos m = ctx.PropuestasDonacionesInsumos.Find(mp.IdPropuestaDonacionInsumo);
+            m.Nombre = mp.NombreItem;
+            m.Cantidad = mp.Cantidad;
+            ctx.SaveChanges();
+            return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
+        }
+        [HttpPost]
+        public ActionResult ModificarPropuestaHorasTrabajo(ModificarPropuesta mp)
+        {
+            PropuestasDonacionesHorasTrabajo p = ctx.PropuestasDonacionesHorasTrabajo.Find(mp.IdPropuestaDonacionHorasTrabajo);
+            p.CantidadHoras = mp.CantidadHoras;
+            if (mp.Profesion != "")
+            {
+                p.Profesion = mp.Profesion;
+            }
+            ctx.SaveChanges();
+            return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
+        }
+        [HttpPost]
+        public ActionResult ModificarPropuestaReferencias(ModificarPropuesta mp)
+        {
+            int j = 1;
+            List<PropuestasReferencias> p = prop.GetReferencias(mp.IdPropuesta);
+            foreach(var x in p)
+            {
+                if(j == 1)
+                {
+                    PropuestasReferencias pr = ctx.PropuestasReferencias.Find(x.IdReferencia);
+                    pr.Nombre = mp.NombreRef1;
+                    pr.Telefono =mp.TelefonoRef1;
+                    ctx.SaveChanges();
+                }
+                if (j == 2)
+                {
+                    PropuestasReferencias pr = ctx.PropuestasReferencias.Find(x.IdReferencia);
+                    pr.Nombre = mp.NombreRef2;
+                    pr.Telefono = mp.TelefonoRef2;
+                    ctx.SaveChanges();
+                }
+                j++;
+
+            }
+            return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
+        }
+
 
         public ActionResult Finished()
         {

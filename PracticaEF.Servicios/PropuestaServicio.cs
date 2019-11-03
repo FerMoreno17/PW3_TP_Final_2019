@@ -59,25 +59,25 @@ namespace PracticaEF.Servicios
              select propuesta).SingleOrDefault();
         }
 
-        public Object getPropuestaDonacion(int id, int prop)
+        public Object getPropuestaDonacion(int idProp, int tipoProp)
         {
            
-            if(id == 1)
+            if(tipoProp == 1)
             {
                 return (from propuesta in ctx.PropuestasDonacionesMonetarias
-                        where propuesta.IdPropuesta == prop
+                        where propuesta.IdPropuesta == idProp
                         select propuesta).SingleOrDefault();
             }
-            if (id == 2)
+            if (tipoProp == 2)
             {
                 return (from propuesta in ctx.PropuestasDonacionesInsumos
-                        where propuesta.IdPropuesta == prop
+                        where propuesta.IdPropuesta == idProp
                         select propuesta).SingleOrDefault();
             }
-            if (id == 3)
+            if (tipoProp == 3)
             {
                 return (from propuesta in ctx.PropuestasDonacionesHorasTrabajo
-                        where propuesta.IdPropuesta == prop
+                        where propuesta.IdPropuesta == idProp
                         select propuesta).SingleOrDefault();
             }
             return "error";
