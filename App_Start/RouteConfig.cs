@@ -15,8 +15,8 @@ namespace TP_Final_2019_v._0
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Index", action = "Inicio", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}/{id2}",
+                defaults: new { controller = "Index", action = "Inicio", id = UrlParameter.Optional, id2 = UrlParameter.Optional }
             );
         }
     }

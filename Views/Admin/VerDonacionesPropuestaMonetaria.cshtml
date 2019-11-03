@@ -1,0 +1,46 @@
+﻿@model List<PracticaEF.Data.DonacionesMonetarias>
+@{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "VerDonacionesPropuestaMonetaria";
+}
+    <section class="wrapper site-min-height">
+        <h3><i class="fa fa-angle-right"></i> Donaciones para la propuesta</h3>
+        <h4><i class="fa fa-angle-right"></i> @ViewBag.Propuesta.Nombre</h4>
+        <div class="row mt">
+
+            @{
+                if (Model != null)
+                {
+                    <div class="col-12">
+                        <div class="content-panel">
+                            <table class="table table-striped table-advance table-hover">
+                                <h4><i class="fa fa-angle-right"></i> Advanced Table</h4>
+                                <hr>
+                                <thead>
+                                    <tr>
+                                        <th><i class="fa fa-bullhorn"></i># Colaborador</th>
+                                        <th class="hidden-phone"><i class="fa fa-question-circle"></i> Dinero</th>
+                                        <th><i class="fa fa-bookmark"></i> ADjunto</th>
+                                        <th><i class=" fa fa-edit"></i> Fecha</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var d in Model)
+                                    {
+                                        <tr>
+                                            <td>@d.IdUsuario</td>
+                                            <td>@d.Dinero</td>
+                                            <td><img src="~/Images/donaciones/@d.ArchivoTransferencia" style="width:25px;height:25px;"/></td>
+                                            <td>@d.FechaCreacion</td>
+                                        </tr> 
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /content-panel -->
+                    </div>
+                }
+            }
+        </div>
+    </section>

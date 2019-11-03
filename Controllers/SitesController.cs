@@ -24,8 +24,9 @@ namespace TP_Final_2019_v._0.Controllers
 
         public ActionResult Propuestas()
         {
+            List<Propuestas> lista = prop.getListaPropuestas();
             ViewBag.EstiloPagina = "single-page causes-page";
-            return View();
+            return View(lista);
         }
 
         [HttpGet]
@@ -198,6 +199,23 @@ namespace TP_Final_2019_v._0.Controllers
                 return View("Confirmaciones");
             }
             return View("/Shared/Error");
+        }
+
+       [HttpPost]
+        public ActionResult BuscarPropuesta(FormCollection form)
+        {
+            if(form["Buscar"] == null || form["Buscar"] == "")
+            {
+                return RedirectToAction("Propuestas");
+            }
+            else
+            {
+                string buscar = form["Buscar"];
+                List<Propuestas> lista = prop.BuscarPropuestas(buscar);
+                ViewBag.EstiloPagina = "single-page causes-page";
+                return View("Propuestas", lista);
+            }
+            
         }
     }
 }

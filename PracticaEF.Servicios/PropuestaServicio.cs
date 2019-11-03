@@ -187,5 +187,31 @@ namespace PracticaEF.Servicios
             }
             return 0;
         }
+
+        public List<Propuestas> getListaPropuestas()
+        {
+            return (from propuesta in ctx.Propuestas
+                    select propuesta).ToList();
+        }
+
+        public List<Propuestas> BuscarPropuestas(string buscar)
+        {
+            return (from propuesta in ctx.Propuestas
+                    join usuario in ctx.Usuarios
+                    on propuesta.IdUsuarioCreador equals usuario.IdUsuario
+                    where propuesta.Nombre.Contains(buscar) || 
+                    usuario.Nombre.Contains(buscar) || 
+                    usuario.Apellido.Contains(buscar)
+                    orderby propuesta.FechaFin ascending
+                    orderby propuesta.Valoracion descending
+                    select propuesta).ToList();
+        }
+
+        public List<PropuestasReferencias> GetReferencias(int id)
+        {
+            return (from pr in ctx.PropuestasReferencias
+                    where pr.IdPropuesta == id
+                    select pr).ToList();
+        }
     }
 }

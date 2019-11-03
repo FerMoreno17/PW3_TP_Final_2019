@@ -142,6 +142,7 @@
     <Compile Include="Models\Denuncia.cs" />
     <Compile Include="Models\Donacion.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\ModificarPropuesta.cs" />
     <Compile Include="Models\ModificarUsuario.cs" />
     <Compile Include="Models\Referencia.cs" />
     <Compile Include="Models\RegistrarUsuario.cs" />
@@ -330,6 +331,10 @@
     <Content Include="Views\Sites\GenerarDonacion.cshtml" />
     <Content Include="Views\Sites\GenerarDenuncia.cshtml" />
     <Content Include="Views\Sites\Confirmaciones.cshtml" />
+    <Content Include="Views\Admin\VerDonacionesPropuestaMonetaria.cshtml" />
+    <Content Include="Views\Admin\VerDonacionesPropuestaInsumos.cshtml" />
+    <Content Include="Views\Admin\VerDonacionesPropuestaHorasTrabajo.cshtml" />
+    <Content Include="Views\Admin\ModificarPropuesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

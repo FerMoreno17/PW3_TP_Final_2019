@@ -6,6 +6,7 @@ using Models;
 using System.IO;
 using System.Web;
 using System;
+using System.Collections.Generic;
 
 namespace TP_Final_2019_v._0.Controllers
 {
@@ -81,20 +82,6 @@ namespace TP_Final_2019_v._0.Controllers
             return View("/Shared/Error");
         }
 
-        
-        public ActionResult Propuestas()
-        {
-            if (Session["session"] == null)
-            {
-                return RedirectToAction("../Index/Inicio");
-            }
-            else
-            {
-                ViewBag.UsuarioEncontrado = Session["session"];
-                return View();
-            }
-        }
-
         [HttpGet]
         public ActionResult CrearPropuesta()
         {
@@ -154,9 +141,76 @@ namespace TP_Final_2019_v._0.Controllers
                 return View();
             }
             return View();
-        } 
-       
-        
+        }
+
+        public ActionResult Propuestas()
+        {
+            if (Session["session"] == null)
+            {
+                return RedirectToAction("../Index/Inicio");
+            }
+            else
+            {
+                Usuarios u = (Usuarios)Session["session"];
+                List<Propuestas> lista = admin.getMisPropuestas(u.IdUsuario);
+                ViewBag.EstiloPagina = "single-page causes-page";
+                return View(lista);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult VerDonacionesPropuesta(int id)
+        {
+            var p = admin.getPropuesta(id);
+            ViewBag.Propuesta = p;
+            if(p.TipoDonacion == 1)
+            {
+                var tp =(PropuestasDonacionesMonetarias) admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don =(List<DonacionesMonetarias>) admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionMonetaria);
+                ViewBag.Propuesta = p;
+                ViewBag.TipoPropuesta = tp;
+                return View("VerDonacionesPropuestaMonetaria",don);
+            }
+            if (p.TipoDonacion == 2)
+            {
+                var tp = (PropuestasDonacionesInsumos)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesInsumos>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionInsumo);
+                ViewBag.Propuesta = p;
+                ViewBag.TipoPropuesta = tp;
+                return View("VerDonacionesPropuestaInsumos", don);
+            }
+            if (p.TipoDonacion == 3)
+            {
+                var tp = (PropuestasDonacionesHorasTrabajo)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesHorasTrabajo>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionHorasTrabajo);
+                ViewBag.Propuesta = p;
+                ViewBag.TipoPropuesta = tp;
+                return View("VerDonacionesPropuestaHorasTrabajo", don);
+            }
+            return View("../Shared/Error.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult ModificarPropuesta(int id)
+        {
+            var p = prop.getPropuesta(id);
+            if(p.TipoDonacion == 1)
+            {
+                var tp = (PropuestasDonacionesMonetarias) prop.getPropuestaDonacion(id, p.TipoDonacion);
+            }
+            if (p.TipoDonacion == 2)
+            {
+                var tp = (PropuestasDonacionesInsumos)prop.getPropuestaDonacion(id, p.TipoDonacion);
+            }
+            if (p.TipoDonacion == 3)
+            {
+                var tp = (PropuestasDonacionesHorasTrabajo)prop.getPropuestaDonacion(id, p.TipoDonacion);
+            }
+            var referencias = prop.GetReferencias(p.IdPropuesta);
+            ModificarPropuesta mp = new ModificarPropuesta();
+            return View();
+        }
+
         /*[HttpPost]
         public ActionResult CrearPropuesta(CrearPropuesta cp, HttpPostedFileBase file)
         {

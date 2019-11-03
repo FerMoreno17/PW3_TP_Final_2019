@@ -50,7 +50,7 @@
                     if (@Model.IdUsuarioCreador != u.IdUsuario)
                     {
                         <div class="row">
-                            <div class="col-2">
+                            <div class="col-sm-12 col-md-2">
                                 <form action="/Sites/ValorarPropuesta" method="post">
                                     <div class="entry-footer mt-5">
                                         <input type="text" name="IdUsuario" value="@Model.IdUsuarioCreador" hidden />
@@ -60,9 +60,9 @@
                                     </div><!-- .entry-footer -->
                                 </form>
                             </div>
-                            <div class="col-2">
+                            <div class="col-sm-12 col-md-2">
                                 <form action="/Sites/ValorarPropuesta" method="post">
-                                    <div class="entry-footer mt-5">
+                                    <div class="entry-footer mt-md-5">
                                         <input type="text" name="IdUsuario" value="@Model.IdUsuarioCreador" hidden />
                                         <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
                                         <input type="text" name="Valoracion" value="0" hidden />
@@ -70,14 +70,14 @@
                                     </div><!-- .entry-footer -->
                                 </form>
                             </div>
-                            <div class="col-4">
-                                <div class="entry-footer mt-5">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="entry-footer mt-md-5">
                                     <a href="/Sites/GenerarDonacion/@Model.IdPropuesta" class="btn gradient-bg">Donar Ahora</a>
                                 </div><!-- .entry-footer -->
                             </div>
-                            <div class="col-2">
-                                <div class="entry-footer mt-5">
-                                    <a href="/Sites/GenerarDenuncia/@Model.IdPropuesta" class="btn btn-warning"><i class="fa fa-minus-circle"></i></a>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="entry-footer mt-md-5">
+                                    <a href="/Sites/GenerarDenuncia/@Model.IdPropuesta" class="btn btn-warning pt-4 border-0"><i class="fa fa-minus-circle"></i></a>
                                 </div><!-- .entry-footer -->
                             </div>
                         </div>

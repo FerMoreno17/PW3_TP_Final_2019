@@ -10,7 +10,6 @@ namespace TP_Final_2019_v._0.Controllers
     {
         private readonly Entities ctx = new Entities();
         PropuestaServicio prop = new PropuestaServicio();
-        DbSet<PracticaEF.Data.Propuestas> propuesta;
 
         // GET: Index
         public ActionResult Inicio()
