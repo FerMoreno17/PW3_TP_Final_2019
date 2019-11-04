@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Models;
+using System.Net.Mail;
 
 namespace TP_Final_2019_v._0.Controllers
 {
@@ -13,6 +14,7 @@ namespace TP_Final_2019_v._0.Controllers
     {
         readonly UsuarioServicio user = new UsuarioServicio();
         readonly PropuestaServicio prop = new PropuestaServicio();
+        readonly AdministradorServicio admin = new AdministradorServicio();
         readonly Entities ctx = new Entities();
 
         // GET: AboutUs
@@ -48,8 +50,16 @@ namespace TP_Final_2019_v._0.Controllers
                 if(resp == 1)   
                 {
                     var usuario_encontrado = user.getUsuario(u);
-                    Session["session"] = usuario_encontrado;
-                    return Redirect("/Index/Inicio");
+                    if(usuario_encontrado.Activo == true)
+                    {
+                        Session["session"] = usuario_encontrado;
+                        return Redirect("/Index/Inicio");
+                    }
+                    else
+                    {
+                        ViewBag.MotivoError = "No te encuentras activo aún, revisa tu correo y sigue el enlace que te hemos enviado. Gracias.";
+                        return View("../Shared/Error");
+                    } 
                 }
                 else
                 {
@@ -91,12 +101,24 @@ namespace TP_Final_2019_v._0.Controllers
                         u.Password = us.Password;
                         u.FechaNacimiento = us.FechaNacimiento;
                         user.Agregar(u);
-                        ViewBag.Mensaje = "Usuario registrado exitosamente.";
+
+                        Usuarios encontrado = admin.BuscarPorEmail(us.Email);
+                        admin.EnviarMail(encontrado);
+
+
+                        ViewBag.Mensaje = "Usuario registrado exitosamente. Revisa tu correo para activar tu cuenta.";
                         return View("Confirmaciones");
                     }
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult ActivarCuenta(String token)
+        {
+            admin.ActivarCuenta(token: token);
+            return View("Login");
         }
 
         [HttpGet]

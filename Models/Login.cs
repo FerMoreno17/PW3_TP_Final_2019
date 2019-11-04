@@ -18,5 +18,6 @@ namespace Models
         public string Password { get; set; }
 
         public int Valor { get; set; }
+
     }
 }

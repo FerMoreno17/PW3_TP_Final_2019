@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Web;
 using PracticaEF.Data;
 
 
@@ -14,6 +16,51 @@ namespace PracticaEF.Servicios
         public Usuarios BuscarPorId(int id)
         {
             return ctx.Usuarios.SingleOrDefault(o => o.IdUsuario == id);
+        }
+
+        public Usuarios BuscarPorEmail (string email)
+        {
+            return ctx.Usuarios.SingleOrDefault(o => o.Email == email);
+        }
+
+        public void EnviarMail(Usuarios u)
+        {
+            try
+            {
+                MailMessage correo = new MailMessage();
+                correo.From = new MailAddress("confirmaciones@ayudandoalprojimo.org");
+                correo.To.Add(u.Email);
+                correo.Subject = "Activacion de Cuenta";
+                correo.Body = HttpContext.Current.Request.Url.Scheme.ToString() + "://" + HttpContext.Current.Request.Url.Authority.ToString() + "/Sites/ActivarCuenta?token=" + u.Token;
+                correo.IsBodyHtml = true;
+                correo.Priority = MailPriority.Normal;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 25;
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = true;
+                string scuentaCorreo = "ecommerce.mmda@gmail.com";
+                string spasswordCorreo = "admin-123";
+
+                smtp.Credentials = new System.Net.NetworkCredential(scuentaCorreo, spasswordCorreo);
+
+                smtp.Send(correo);
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+        }
+
+        public void ActivarCuenta(string token)
+        {
+            Usuarios u = (Usuarios)(from usuario in ctx.Usuarios
+                     where usuario.Token == token
+                     select usuario).SingleOrDefault();
+            u.Activo = true;
+            ctx.SaveChanges();
         }
 
         public List<Propuestas> getMisPropuestas(int buscar)
