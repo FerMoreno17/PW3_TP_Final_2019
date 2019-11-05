@@ -78,6 +78,15 @@ namespace PracticaEF.Servicios
                         select p).FirstOrDefault();
         }
 
+        public int ContarPropuestasActivas(int id)
+        {
+            int cantidad = (from p in ctx.Propuestas
+                            where p.IdUsuarioCreador == id
+                            && p.Estado == 1
+                            select p).Count();
+            return cantidad;
+        }
+
         public Object getTipoPropuesta(int tp, int idProp)
         {//obtengo el id del tipo de propuesta para poder traer la lista de donaciones en el siguiente paso
             if(tp == 1)
@@ -127,6 +136,46 @@ namespace PracticaEF.Servicios
             /*return (from propuesta in ctx.Propuestas
              where propuesta.IdUsuarioCreador == buscar
              select propuesta).ToList();*/
+        }
+
+        public List<PracticaEF.Data.Denuncias> GetDenuncias()
+        {
+            return (from d in ctx.Denuncias
+             where d.Estado == 1
+             orderby d.IdPropuesta ascending
+             select d).ToList();
+        }
+
+        public void AceptarDenuncia(int id)
+        {
+            Propuestas p = ctx.Propuestas.Find(id);
+            p.Estado = 2;
+            ctx.SaveChanges();
+            AceptarDenunciaPonerEnEstado2Desactivada(id);
+        }
+
+        public void IgnorarDenuncia(int id)
+        {
+            List<PracticaEF.Data.Denuncias> lista = (from d in ctx.Denuncias
+                                                     where d.IdPropuesta == id && d.Estado == 1
+                                                     select d).ToList();
+            foreach (var o in lista)
+            {
+                o.Estado = 0;
+            }
+            ctx.SaveChanges(); 
+        }
+
+        public void AceptarDenunciaPonerEnEstado2Desactivada(int id)
+        {
+            List<PracticaEF.Data.Denuncias> lista = (from d in ctx.Denuncias
+                                                     where d.IdPropuesta == id
+                                                     select d).ToList();
+            foreach (var o in lista)
+            {
+                o.Estado = 0;
+            }
+            ctx.SaveChanges();
         }
     }
 }

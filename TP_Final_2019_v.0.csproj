@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="Models\CrearPropuesta.cs" />
     <Compile Include="Models\Denuncia.cs" />
+    <Compile Include="Models\DenunciasPropuestas.cs" />
     <Compile Include="Models\Donacion.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ModificarPropuesta.cs" />
@@ -335,6 +336,8 @@
     <Content Include="Views\Admin\VerDonacionesPropuestaInsumos.cshtml" />
     <Content Include="Views\Admin\VerDonacionesPropuestaHorasTrabajo.cshtml" />
     <Content Include="Views\Admin\ModificarPropuesta.cshtml" />
+    <Content Include="Views\Admin\Error.cshtml" />
+    <Content Include="Views\Admin\Denuncias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

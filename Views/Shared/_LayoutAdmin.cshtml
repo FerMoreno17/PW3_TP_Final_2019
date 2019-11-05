@@ -140,24 +140,29 @@
                             <span>Mis Donaciones </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="~/Admin/Perfil/@user.IdUsuario">
-                            <i class="fa fa-envelope"></i>
-                            <span>Perfil </span>
-                        </a>
-                    </li>
+                    @{ if (user.TipoUsuario == 1)
+                        {
+                            <li>
+                                <a href="~/Admin/Denuncias">
+                                    <i class="fa fa-envelope"></i>
+                                    <span>Ver denuncias </span>
+                                </a>
+                            </li>
+                        }
+                    }
+
                     <!--li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class=" fa fa-bar-chart-o"></i>
-                            <span>Charts</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="morris.html">Morris</a></li>
-                            <li><a href="chartjs.html">Chartjs</a></li>
-                            <li><a href="flot_chart.html">Flot Charts</a></li>
-                            <li><a href="xchart.html">xChart</a></li>
-                        </ul>
-                    </li-->
+        <a href="javascript:;">
+            <i class=" fa fa-bar-chart-o"></i>
+            <span>Charts</span>
+        </a>
+        <ul class="sub">
+            <li><a href="morris.html">Morris</a></li>
+            <li><a href="chartjs.html">Chartjs</a></li>
+            <li><a href="flot_chart.html">Flot Charts</a></li>
+            <li><a href="xchart.html">xChart</a></li>
+        </ul>
+    </li-->
                 </ul>
                 <!-- sidebar menu end-->
             </div>

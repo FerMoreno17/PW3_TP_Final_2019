@@ -20,17 +20,17 @@ namespace TP_Final_2019_v._0.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            if(Session["session"] == null)
+            if (Session["session"] == null)
             {
                 return RedirectToAction("../Index/Inicio");
             }
             else
             {
-            return View();
+                return View();
 
             }
         }
-  /*-------------------Perfil---------------------------*/      
+        /*-------------------Perfil---------------------------*/
         [HttpGet]
         public ActionResult Perfil(int id)
         {
@@ -47,7 +47,7 @@ namespace TP_Final_2019_v._0.Controllers
         [HttpPost]
         public ActionResult Perfil(ModificarUsuario recibido, HttpPostedFileBase file)
         {
-            
+
             if (ModelState.IsValid)
             {
                 Usuarios us = (Usuarios)Session["session"];
@@ -62,9 +62,20 @@ namespace TP_Final_2019_v._0.Controllers
                     aCambiar.Foto = fileName;
                     aCambiar.Nombre = recibido.Nombre;
                     aCambiar.Apellido = recibido.Apellido;
-                    if(aCambiar.UserName == null)
+                    if (aCambiar.UserName == null)
                     {
-                        aCambiar.UserName = recibido.Nombre + recibido.Apellido;
+                        string nameUser = recibido.Nombre +"."+recibido.Apellido;
+                        int contar = (from u in ctx.Usuarios
+                                      where u.UserName.Contains(nameUser)
+                                      select u.UserName).Count();
+                        if (contar == 0)
+                        {
+                            aCambiar.UserName = nameUser;
+                        }
+                        else
+                        {
+                            aCambiar.UserName = nameUser + "." + contar;
+                        }
                     }
 
                     ctx.SaveChanges();
@@ -74,13 +85,13 @@ namespace TP_Final_2019_v._0.Controllers
                 else
                 {
                     ViewBag.MotivoError = "No se hemos podido modficar tu perfil.";
-                    return View("/Shared/Error");
+                    return View("Error");
                 }
             }
             ViewBag.MotivoError = "El formato de modelo no es válido.";
-            return View("/Shared/Error");
+            return View("Error");
         }
-/*-------------------Crear Propuesta---------------------------*/
+        /*-------------------Crear Propuesta---------------------------*/
         [HttpGet]
         public ActionResult CrearPropuesta()
         {
@@ -90,8 +101,20 @@ namespace TP_Final_2019_v._0.Controllers
             }
             else
             {
-                ViewBag.UsuarioEncontrado = Session["session"];
-                return View();
+                Usuarios u = (Usuarios)Session["session"];
+                int cantidadPropuestas = admin.ContarPropuestasActivas(u.IdUsuario);
+                if (cantidadPropuestas < 3)
+                {
+                    ViewBag.UsuarioEncontrado = u;
+                    return View();
+                }
+                else
+                {
+                    Uri url = Request.UrlReferrer;
+                    ViewBag.Volver = url;
+                    ViewBag.MotivoError = "Has llegado al límite de 3 propuestas activas. No puedes crear una nueva.";
+                    return View("Error");
+                }
             }
         }
         [HttpPost]
@@ -102,7 +125,7 @@ namespace TP_Final_2019_v._0.Controllers
             {
                 Propuestas p = new Propuestas();
                 Usuarios u = (Usuarios)Session["session"];
-                
+
                 if (file != null && file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
@@ -123,13 +146,13 @@ namespace TP_Final_2019_v._0.Controllers
                     ctx.Propuestas.Add(p);
                     ctx.SaveChanges();
 
-                    if(cp.TipoDonacion == 1)
+                    if (cp.TipoDonacion == 1)
                     {
                         return View("TipoDonacionMonetaria");
                     }
                     if (cp.TipoDonacion == 2)
                     {
-                       return View("TipoDonacionInsumos");
+                        return View("TipoDonacionInsumos");
                     }
                     if (cp.TipoDonacion == 3)
                     {
@@ -231,7 +254,8 @@ namespace TP_Final_2019_v._0.Controllers
                 ViewBag.IdPropuesta = usua;
                 return View("Referencias");
             }
-            return View();
+            ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
+            return View("Error");
         }
         [HttpGet]
         public ActionResult TipoDonacionInsumos()
@@ -264,7 +288,8 @@ namespace TP_Final_2019_v._0.Controllers
                 ViewBag.IdPropuesta = usua;
                 return View("Referencias");
             }
-            return View();
+            ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
+            return View("Error");
 
         }
         [HttpGet]
@@ -297,7 +322,8 @@ namespace TP_Final_2019_v._0.Controllers
                 ViewBag.IdPropuesta = usua;
                 return View("Referencias");
             }
-            return View();
+            ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
+            return View("Error");
         }
         [HttpGet]
         public ActionResult Referencias()
@@ -331,7 +357,7 @@ namespace TP_Final_2019_v._0.Controllers
             ViewBag.Mensaje = "Propuesta cargada exitosamente";
             return View("Finished");
         }
-/*-------------------Ver Propuesta y donaciones---------------------------*/
+        /*-------------------Ver Propuesta y donaciones---------------------------*/
         public ActionResult Propuestas()
         {
             if (Session["session"] == null)
@@ -375,9 +401,10 @@ namespace TP_Final_2019_v._0.Controllers
                 ViewBag.TipoPropuesta = tp;
                 return View("VerDonacionesPropuestaHorasTrabajo", don);
             }
-            return View("../Shared/Error.cshtml");
+            ViewBag.MotivoError = "No hemos podido procesar la solicitud. Ocurrio un problema al visualizar las donaciones recibidas";
+            return View("Error");
         }
-/*-------------------Modificar propuesta---------------------------*/
+        /*-------------------Modificar propuesta---------------------------*/
         [HttpGet]
         public ActionResult ModificarPropuesta(int id)
         {
@@ -484,31 +511,31 @@ namespace TP_Final_2019_v._0.Controllers
                 }
                 return View(mp);
             }
-
-            return View();
+            ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
+            return View("Error");
         }
         [HttpPost]
-        public ActionResult ModificarPropuesta(ModificarPropuesta mp,HttpPostedFileBase file)
+        public ActionResult ModificarPropuesta(ModificarPropuesta mp, HttpPostedFileBase file)
         {
-                Propuestas p = ctx.Propuestas.Find(mp.IdPropuesta);    
+            Propuestas p = ctx.Propuestas.Find(mp.IdPropuesta);
 
-                if (file != null && file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Images/propuestas"), fileName);
-                    file.SaveAs(path);
-                    p.Foto = fileName;
-                }
-                p.Nombre = mp.Nombre;
-                p.Descripcion = mp.Descripcion;
-                if(mp.FechaFin.ToString() != "1/1/0001 00:00:00")
-                {
-                    p.FechaFin = mp.FechaFin;
-                }
-                p.TelefonoContacto = mp.TelefonoContacto;
-                ctx.SaveChanges();
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/propuestas"), fileName);
+                file.SaveAs(path);
+                p.Foto = fileName;
+            }
+            p.Nombre = mp.Nombre;
+            p.Descripcion = mp.Descripcion;
+            if (mp.FechaFin.ToString() != "1/1/0001 00:00:00")
+            {
+                p.FechaFin = mp.FechaFin;
+            }
+            p.TelefonoContacto = mp.TelefonoContacto;
+            ctx.SaveChanges();
 
-                return RedirectToAction("ModificarPropuesta");
+            return RedirectToAction("ModificarPropuesta");
         }
         [HttpPost]
         public ActionResult ModificarPropuestaMonetaria(ModificarPropuesta mp)
@@ -517,7 +544,7 @@ namespace TP_Final_2019_v._0.Controllers
             p.Dinero = mp.Dinero;
             p.CBU = mp.CBU;
             ctx.SaveChanges();
-            return RedirectToAction("ModificarPropuesta/"+mp.IdPropuesta);
+            return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
         }
         [HttpPost]
         public ActionResult ModificarPropuestaInsumos(ModificarPropuesta mp)
@@ -545,13 +572,13 @@ namespace TP_Final_2019_v._0.Controllers
         {
             int j = 1;
             List<PropuestasReferencias> p = prop.GetReferencias(mp.IdPropuesta);
-            foreach(var x in p)
+            foreach (var x in p)
             {
-                if(j == 1)
+                if (j == 1)
                 {
                     PropuestasReferencias pr = ctx.PropuestasReferencias.Find(x.IdReferencia);
                     pr.Nombre = mp.NombreRef1;
-                    pr.Telefono =mp.TelefonoRef1;
+                    pr.Telefono = mp.TelefonoRef1;
                     ctx.SaveChanges();
                 }
                 if (j == 2)
@@ -567,6 +594,27 @@ namespace TP_Final_2019_v._0.Controllers
             return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
         }
 
+        /*-------------------Denuncias---------------------------*/
+        [HttpGet]
+        public ActionResult Denuncias()
+        {
+            List<PracticaEF.Data.Denuncias> lista = admin.GetDenuncias();
+            return View(lista);
+        }
+        [HttpGet]
+        public ActionResult AceptarDenuncia(int id)
+        {
+            admin.AceptarDenuncia(id);
+            return RedirectToAction("Denuncias");
+        }
+        [HttpGet]
+        public ActionResult IgnorarDenuncia(int id)
+        {
+            admin.IgnorarDenuncia(id);
+            return RedirectToAction("Denuncias");
+        }
+
+        /*-------------------Varias---------------------------*/
 
         public ActionResult Finished()
         {

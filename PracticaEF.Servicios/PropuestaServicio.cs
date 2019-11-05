@@ -30,7 +30,27 @@ namespace PracticaEF.Servicios
             {
                 pv.Valoracion = false;
             }
+           
             ctx.PropuestasValoraciones.Add(pv);
+            ctx.SaveChanges(); 
+            ActualizarValoracionPropuesta(pv.IdPropuesta);
+        }
+
+        public void ActualizarValoracionPropuesta(int id)
+        {
+            int suma = 0;
+            int cantidad = 0;
+            Propuestas p = ctx.Propuestas.Find(id);
+            var lista = (from vc in ctx.PropuestasValoraciones
+                         where vc.IdPropuesta == id
+                         select vc).ToList();
+            foreach (var x in lista)
+            {
+                cantidad++;
+                suma += Convert.ToInt32(x.Valoracion);
+            }
+            decimal Valoracion = cantidad / suma * 100;
+            p.Valoracion = Valoracion;
             ctx.SaveChanges();
         }
 
@@ -42,7 +62,8 @@ namespace PracticaEF.Servicios
         public void CargarDenuncia(FormCollection form)
         {
             Denuncias dm = new Denuncias();
-            dm.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
+            int idProp = Convert.ToInt32(form["IdPropuesta"]);
+            dm.IdPropuesta = idProp;
             dm.IdMotivo = Convert.ToInt32(form["IdMotivo"]);
             dm.Comentarios = form["Comentarios"];
             dm.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
@@ -50,6 +71,21 @@ namespace PracticaEF.Servicios
             dm.Estado = 1;
             ctx.Denuncias.Add(dm);
             ctx.SaveChanges();
+
+            ComprobarCantidadDeDenuncias(idProp);
+        }
+
+        public void ComprobarCantidadDeDenuncias(int idProp)
+        {
+            int contar = (from cd in ctx.Denuncias
+                          where cd.IdPropuesta == idProp
+                          select cd).Count();
+            if(contar == 5)
+            {
+                Propuestas d = ctx.Propuestas.Find(idProp);
+                d.Estado = 0;
+                ctx.SaveChanges();
+            }
         }
 
         public Propuestas getPropuesta(int id)
@@ -191,6 +227,7 @@ namespace PracticaEF.Servicios
         public List<Propuestas> getListaPropuestas()
         {
             return (from propuesta in ctx.Propuestas
+                    where propuesta.Estado == 1
                     select propuesta).ToList();
         }
 

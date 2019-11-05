@@ -27,23 +27,13 @@
                 </div>
                 
                 <div class="fund-raised w-100 mt-5">
+                    <p>Valoración</p>
                     <div class="featured-fund-raised-bar barfiller">
                         <div class="tipWrap">
                             <span class="tip"></span>
                         </div><!-- .tipWrap -->
-
-                        <span class="fill" data-percentage="83"></span>
+                        <span class="fill" data-percentage="@Model.Valoracion"></span>
                     </div><!-- .fund-raised-bar -->
-
-                    <div class="fund-raised-details d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="fund-raised-total mt-4">
-                            Ya Tenemos: $0
-                        </div><!-- .fund-raised-total -->
-
-                        <div class="fund-raised-goal mt-4">
-                            Total necesario: $xxxx
-                        </div><!-- .fund-raised-goal -->
-                    </div><!-- .fund-raised-details -->
                 </div><!-- .fund-raised -->
 
                 @{
@@ -53,7 +43,7 @@
                             <div class="col-sm-12 col-md-2">
                                 <form action="/Sites/ValorarPropuesta" method="post">
                                     <div class="entry-footer mt-5">
-                                        <input type="text" name="IdUsuario" value="@Model.IdUsuarioCreador" hidden />
+                                        <input type="text" name="IdUsuario" value="@u.IdUsuario" hidden />
                                         <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
                                         <input type="text" name="Valoracion" value="1" hidden />
                                         <button type="submit" class="btn gradient-bg"><i class="fa fa-thumbs-o-up"></i></button>
@@ -63,7 +53,7 @@
                             <div class="col-sm-12 col-md-2">
                                 <form action="/Sites/ValorarPropuesta" method="post">
                                     <div class="entry-footer mt-md-5">
-                                        <input type="text" name="IdUsuario" value="@Model.IdUsuarioCreador" hidden />
+                                        <input type="text" name="IdUsuario" value="@u.IdUsuario" hidden />
                                         <input type="text" name="IdPropuesta" value="@Model.IdPropuesta" hidden />
                                         <input type="text" name="Valoracion" value="0" hidden />
                                         <button type="submit" class="btn gradient-bg"><i class="fa fa-thumbs-o-down"></i></button>

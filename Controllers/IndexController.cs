@@ -17,11 +17,11 @@ namespace TP_Final_2019_v._0.Controllers
             ViewBag.Titulo = "Bienvenidos";
             ViewBag.EstiloPagina = "";
             var Listado = (from propuesta in ctx.Propuestas
-                                    join usuario in ctx.Usuarios
-                                    on propuesta.IdUsuarioCreador equals usuario.IdUsuario
-                                    where propuesta.Estado == 1
-                                    select propuesta
-                          ).ToList();
+                           join usuario in ctx.Usuarios
+                           on propuesta.IdUsuarioCreador equals usuario.IdUsuario
+                           where propuesta.Estado == 1
+                           orderby propuesta.Valoracion descending
+                           select propuesta).Take(5).ToList();
             return View(Listado);
         }
     }

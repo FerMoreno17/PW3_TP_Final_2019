@@ -5,40 +5,44 @@
     ViewBag.Title = "Propuestas";
 }
 
-    <section class="wrapper site-min-height">
-        <h3><i class="fa fa-angle-right"></i> Mis Propuestas</h3>
-        <div class="row mt">
-
-            @{
-                foreach (var p in Model)
-                {
-                    <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                        <div class="content-panel pn">
-                            <div id="blog-bg" style="background: url(../Images/propuestas/@p.Foto) no-repeat center top;">
-                                @if (p.Estado == 1)
-                                {
-                                    <div class="badge badge-popular">ACTIVA</div>
-                                }
-                                else
-                                {
-                                    <div class="badge badge-popular bg-danger">FINAL</div>
-                                }
-                                <div class="blog-title">@p.Nombre</div>
-                            </div>
-                            <div class="blog-text centered">
-                                @if (p.Estado == 1)
-                                {
-                                    <a href="~/Admin/VerDonacionesPropuesta/@p.IdPropuesta" class="btn btn-round btn-warning">Ver donaciones</a>
-                                    <a href="~/Admin/ModificarPropuesta/@p.IdPropuesta" class="btn btn-round btn-info">Modificar</a>
-                                }
-                                else
-                                {
-                                    <a href="~/Admin/VerDonacionesPropuesta/@p.IdPropuesta" class="btn btn-round btn-warning">Ver donaciones</a>
-                                }
+<h3><i class="fa fa-angle-right mt-0"></i> Mis Propuestas</h3>
+<div class="row mt">
+    <div class="col-md-12">
+        <div class="content-panel">
+            <h6><i class="fa fa-angle-right ml-3"></i> Aquí listamos todas las propuestas que tienes activas y que han finalizado.</h6><hr>
+            <div class="row p-2">
+                @{
+                    foreach (var p in Model)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                            <div class="content-panel pn">
+                                <div id="blog-bg" style="background: url(../Images/propuestas/@p.Foto) no-repeat center top;">
+                                    @if (p.Estado == 1)
+                                    {
+                                        <div class="badge badge-popular">ACTIVA</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-popular bg-danger">FINAL</div>
+                                    }
+                                    <div class="blog-title">@p.Nombre</div>
+                                </div>
+                                <div class="blog-text centered">
+                                    @if (p.Estado == 1)
+                                    {
+                                        <a href="~/Admin/VerDonacionesPropuesta/@p.IdPropuesta" class="btn btn-round btn-warning">Ver donaciones</a>
+                                        <a href="~/Admin/ModificarPropuesta/@p.IdPropuesta" class="btn btn-round btn-info">Modificar</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/Admin/VerDonacionesPropuesta/@p.IdPropuesta" class="btn btn-round btn-warning">Ver donaciones</a>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
+            </div>
         </div>
-    </section>
+    </div>
+</div>
