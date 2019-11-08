@@ -6,11 +6,10 @@
     <title>Error</title>
 </head>
 <body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>Error al procesar la solicitud.</h2>
-        <br />
-        <h3>Error: @ViewBag.MotivoError</h3>
-    </hgroup>
+    <div class="container">
+        <div class="alert alert-danger p-5">
+            <strong>Error: </strong> <h3>@ViewBag.MotivoError</h3>
+        </div>
+    </div>
 </body>
 </html>

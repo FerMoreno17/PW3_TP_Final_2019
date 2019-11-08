@@ -28,8 +28,11 @@
                     @Html.TextBoxFor(o => o.Cantidad, new { @class = "form-control" })
                     <p class="text-danger">@Html.ValidationMessageFor(o => o.Cantidad)</p>
                 </div>
+                
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Continuar</button>
+                    <a type="button" class="btn btn-info btn-circle btn-lg" href="/Admin/"><i class="	fa fa-plus-square"></i></a>
+                    Agregar otro item
+                    <button type="submit" class="btn btn-success float-right">Continuar</button>
                 </div>
             </form>
         </div>
