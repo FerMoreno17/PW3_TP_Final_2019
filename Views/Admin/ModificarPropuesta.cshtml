@@ -52,60 +52,59 @@
 
     };
 }
-<section class="wrapper site-min-height">
-    <h3><i class="fa fa-angle-right"></i> Modificar propuesta</h3>
-    <h6>Los datos de tus propuestas se actualizan por bloques, una vez que cambies los que consideres necesarios debes hacer click en el botón "Guardar estos datos"
-    dentro de cada bloque.</h6>
-    <section class="wrapper mt-0 h-100">
-        <div class="row content-panel h-100 justify-content-center">
-            <div class="col-lg-8 detailed">
-                <h4 class="mb">Datos de la propuesta</h4>
-                <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" method="post" action="~/Admin/ModificarPropuesta" enctype="multipart/form-data">
-                    @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
-                    <div class="form-group">
-                        @Html.AntiForgeryToken()
-                        @Html.LabelFor(o => o.Nombre, "Título")
-                        @Html.TextBoxFor(o => o.Nombre, new { @Value = @Model.Nombre, @class = "form-control" })
-                        <p class="text-danger">@Html.ValidationMessageFor(o => o.Nombre)</p>
-                    </div>
-                    <div class="form-group">
-                        @Html.AntiForgeryToken()
-                        @Html.LabelFor(o => o.Descripcion, "Descripción")
-                        @Html.TextAreaFor(o => o.Descripcion, new { @Value = @Model.Descripcion,  @class = "form-control" })
-                        <p class="text-danger">@Html.ValidationMessageFor(o => o.Descripcion)</p>
-                    </div>
-                    <div class="form-group">
-                        @Html.AntiForgeryToken()
-                        @Html.LabelFor(o => o.FechaFin, "Finaliza: "+ @Model.FechaFin.Date)
-                        @Html.TextBoxFor(o => o.FechaFin, new { type = "date", @Value = @Model.FechaFin,  @class = "form-control" })
-                        <p class="text-danger">@Html.ValidationMessageFor(o => o.FechaFin)</p>
-                    </div>
-                    <div class="form-group">
-                        @Html.AntiForgeryToken()
-                        @Html.LabelFor(o => o.TelefonoContacto, "Teléfono")
-                        @Html.TextBoxFor(o => o.TelefonoContacto, new { type = "phone", @Value = @Model.TelefonoContacto,  @class = "form-control" })
-                        <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoContacto)</p>
-                    </div>
-                    <div class="form-group">
-                        <img src="~/Images/propuestas/@Model.Foto" alt="Alternate Text" style="width:100px;height:50px;"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="file" name="file" value="" />
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Guardar estos datos</button>
-                    </div>
-                    <div class="mensaje"></div>
-                </form>
-                <hr />
-                @{
-                    
-                    if (@Model.TipoDonacion == 1)
-                    {
+<h3><i class="fa fa-angle-right mt-0"></i> Modificar Propuesta</h3>
+<div class="row mt">
+    <div class="container">
+        <div class="content-panel">
+            <h6><i class="fa fa-angle-right ml-3"></i> Hemos separado esta sección en bloques, así cambiarás solo los datos que necesites. Luego de completar cada bloque, recuerda hacer click en "Guardar estos datos".</h6>
+            <hr>
+            <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" method="post" action="~/Admin/ModificarPropuesta" enctype="multipart/form-data">
+                @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Nombre, "Título")
+                    @Html.TextBoxFor(o => o.Nombre, new { @Value = @Model.Nombre, @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Nombre)</p>
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.Descripcion, "Descripción")
+                    @Html.TextAreaFor(o => o.Descripcion, new { @Value = @Model.Descripcion, @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Descripcion)</p>
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.FechaFin, "Finaliza: " + @Model.FechaFin.Date)
+                    @Html.TextBoxFor(o => o.FechaFin, new { type = "date", @Value = @Model.FechaFin, @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.FechaFin)</p>
+                </div>
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(o => o.TelefonoContacto, "Teléfono")
+                    @Html.TextBoxFor(o => o.TelefonoContacto, new { type = "phone", @Value = @Model.TelefonoContacto, @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoContacto)</p>
+                </div>
+                <div class="form-group">
+                    <img src="~/Images/propuestas/@Model.Foto" alt="Alternate Text" style="width:100px;height:50px;" />
+                </div>
+                <div class="form-group">
+                    <input type="file" name="file" value="" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Guardar estos datos</button>
+                </div>
+                <div class="mensaje"></div>
+            </form>
+            <hr />
+            @{
 
-                        <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2 monetaria" action="~/Admin/ModificarPropuestaMonetaria"  method="post">
+                if (@Model.TipoDonacion == 1)
+                {
+
+                        <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2 monetaria" action="~/Admin/ModificarPropuestaMonetaria" method="post">
                             <h3>Monetaria</h3>
-                            @Html.HiddenFor(o => o.IdPropuestaDonacionMonetaria, new { @Value = @Model.IdPropuestaDonacionMonetaria})
+                            @Html.HiddenFor(o => o.TipoDonacion, new { @Value = @Model.TipoDonacion })
+                            @Html.HiddenFor(o => o.IdPropuestaDonacionMonetaria, new { @Value = @Model.IdPropuestaDonacionMonetaria })
                             @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
                             <div class="form-group">
                                 @Html.AntiForgeryToken()
@@ -123,87 +122,88 @@
                                 <button type="submit" class="btn btn-success">Guardar estos datos</button>
                             </div>
                         </form>
-                    }
-                    if (Model.TipoDonacion == 2)
-                    {
-                        <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2 insumos" action="~/Admin/ModificarPropuestaInsumos"  method="post">
-                            <h3>Insumos</h3>
-                            @Html.HiddenFor(o => o.IdPropuestaDonacionInsumo, new { @Value = @Model.IdPropuestaDonacionInsumo })
-                            @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
-                            <div class="form-group">
-                                @Html.AntiForgeryToken()
-                                @Html.LabelFor(o => o.NombreItem, "Item (Ej.: Ladrillos, chapas, ventanas,etc.)")
-                                @Html.TextBoxFor(o => o.NombreItem, new { @Value = @Model.NombreItem, @class = "form-control" })
-                                <p class="text-danger">@Html.ValidationMessageFor(o => o.NombreItem)</p>
-                            </div>
-                            <div class="form-group">
-                                @Html.AntiForgeryToken()
-                                @Html.LabelFor(o => o.Cantidad, "Cantidad")
-                                @Html.TextBoxFor(o => o.Cantidad, new { @Value = @Model.Cantidad, @class = "form-control" })
-                                <p class="text-danger">@Html.ValidationMessageFor(o => o.Cantidad)</p>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">Guardar estos datos</button>
-                            </div>
-                        </form>
-                    }
-                    if (Model.TipoDonacion == 3)
-                    {
-                        <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2 horastrabajo" action="~/Admin/ModificarPropuestaHorasTrabajo"  method="post">
-                            <h3>Horas trabajo</h3>
-                            @Html.HiddenFor(o => o.IdPropuestaDonacionHorasTrabajo, new { @Value = @Model.IdPropuestaDonacionHorasTrabajo })
-                            @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
-                            <div class="form-group">
-                                @Html.AntiForgeryToken()
-                                @Html.LabelFor(o => o.CantidadHoras, "Cantidad de horas")
-                                @Html.TextBoxFor(o => o.CantidadHoras, new { @Value = @Model.CantidadHoras, @class = "form-control" })
-                                <p class="text-danger">@Html.ValidationMessageFor(o => o.CantidadHoras)</p>
-                            </div>
-                            <div class="form-group">
-                                @Html.DropDownListFor(o => o.Profesion, listado, new { @Value = @Model.Profesion, @class = "form-control" })
-                                <p class="text-danger">@Html.ValidationMessageFor(o => o.Profesion)</p>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">Guardar estos datos</button>
-                            </div>
-                        </form>
-                    }
-                    <hr />
-                    <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" id="referencias" action="~/Admin/ModificarPropuestaReferencias" method="post">
+                }
+                if (Model.TipoDonacion == 2)
+                {
+                    <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2 insumos" action="~/Admin/ModificarPropuestaInsumos" method="post">
+                        <h3>Insumos</h3>
+                        @Html.HiddenFor(o => o.TipoDonacion, new { @Value = @Model.TipoDonacion })
+                        @Html.HiddenFor(o => o.IdPropuestaDonacionInsumo, new { @Value = @Model.IdPropuestaDonacionInsumo })
                         @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
-                        <h3>Ingresa los datos de tus referentes</h3>
                         <div class="form-group">
-                            <h4>Referencia 1</h4>
                             @Html.AntiForgeryToken()
-                            @Html.LabelFor(o => o.NombreRef1, "Nombre")
-                            @Html.TextBoxFor(o => o.NombreRef1, new { @class = "form-control" })
-                            <p class="text-danger">@Html.ValidationMessageFor(o => o.NombreRef1)</p>
+                            @Html.LabelFor(o => o.NombreItem, "Item (Ej.: Ladrillos, chapas, ventanas,etc.)")
+                            @Html.TextBoxFor(o => o.NombreItem, new { @Value = @Model.NombreItem, @class = "form-control" })
+                            <p class="text-danger">@Html.ValidationMessageFor(o => o.NombreItem)</p>
                         </div>
                         <div class="form-group">
                             @Html.AntiForgeryToken()
-                            @Html.LabelFor(o => o.TelefonoRef1, "Teléfono")
-                            @Html.TextAreaFor(o => o.TelefonoRef1, new { @class = "form-control" })
-                            <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoRef1)</p>
-                        </div>
-                        <div class="form-group">
-                            <h4>Referencia 2</h4>
-                            @Html.AntiForgeryToken()
-                            @Html.LabelFor(o => o.NombreRef2, "Nombre")
-                            @Html.TextBoxFor(o => o.NombreRef2, new { @class = "form-control" })
-                            <p class="text-danger">@Html.ValidationMessageFor(o => o.NombreRef2)</p>
-                        </div>
-                        <div class="form-group">
-                            @Html.AntiForgeryToken()
-                            @Html.LabelFor(o => o.TelefonoRef2, "Teléfono")
-                            @Html.TextAreaFor(o => o.TelefonoRef2, new { @class = "form-control" })
-                            <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoRef2)</p>
+                            @Html.LabelFor(o => o.Cantidad, "Cantidad")
+                            @Html.TextBoxFor(o => o.Cantidad, new { @Value = @Model.Cantidad, @class = "form-control" })
+                            <p class="text-danger">@Html.ValidationMessageFor(o => o.Cantidad)</p>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Guardar estos datos</button>
                         </div>
                     </form>
                 }
-            </div>
+                if (Model.TipoDonacion == 3)
+                {
+                    <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2 horastrabajo" action="~/Admin/ModificarPropuestaHorasTrabajo" method="post">
+                        <h3>Horas trabajo</h3>
+                        @Html.HiddenFor(o => o.TipoDonacion, new { @Value = @Model.TipoDonacion })
+                        @Html.HiddenFor(o => o.IdPropuestaDonacionHorasTrabajo, new { @Value = @Model.IdPropuestaDonacionHorasTrabajo })
+                        @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
+                        <div class="form-group">
+                            @Html.AntiForgeryToken()
+                            @Html.LabelFor(o => o.CantidadHoras, "Cantidad de horas")
+                            @Html.TextBoxFor(o => o.CantidadHoras, new { @Value = @Model.CantidadHoras, @class = "form-control" })
+                            <p class="text-danger">@Html.ValidationMessageFor(o => o.CantidadHoras)</p>
+                        </div>
+                        <div class="form-group">
+                            @Html.DropDownListFor(o => o.Profesion, listado, new { @Value = @Model.Profesion, @class = "form-control" })
+                            <p class="text-danger">@Html.ValidationMessageFor(o => o.Profesion)</p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Guardar estos datos</button>
+                        </div>
+                    </form>
+                }
+                <hr />
+                <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" id="referencias" action="~/Admin/ModificarPropuestaReferencias" method="post">
+                    @Html.HiddenFor(o => o.IdPropuesta, new { @Value = @Model.IdPropuesta })
+                    <h3>Ingresa los datos de tus referentes</h3>
+                    <div class="form-group">
+                        <h4>Referencia 1</h4>
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.NombreRef1, "Nombre")
+                        @Html.TextBoxFor(o => o.NombreRef1, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.NombreRef1)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.TelefonoRef1, "Teléfono")
+                        @Html.TextBoxFor(o => o.TelefonoRef1, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoRef1)</p>
+                    </div>
+                    <div class="form-group">
+                        <h4>Referencia 2</h4>
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.NombreRef2, "Nombre")
+                        @Html.TextBoxFor(o => o.NombreRef2, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.NombreRef2)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.TelefonoRef2, "Teléfono")
+                        @Html.TextBoxFor(o => o.TelefonoRef2, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoRef2)</p>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Guardar estos datos</button>
+                    </div>
+                </form>
+            }
         </div>
-    </section>
-</section>
+    </div>
+</div>

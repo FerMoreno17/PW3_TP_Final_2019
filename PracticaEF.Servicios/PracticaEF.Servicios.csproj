@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdministradorServicio.cs" />
+    <Compile Include="DonacionService.cs" />
     <Compile Include="PropuestaServicio.cs" />
     <Compile Include="UsuarioServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

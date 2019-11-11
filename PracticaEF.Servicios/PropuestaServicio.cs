@@ -13,27 +13,62 @@ namespace PracticaEF.Servicios
 {
     public class PropuestaServicio
     {
-        Propuestas prop = new Propuestas();
-
         private readonly Entities ctx = new Entities();
+
+        public List<Propuestas> GetTopFive()
+        {
+            return (from propuesta in ctx.Propuestas
+                    join usuario in ctx.Usuarios
+                    on propuesta.IdUsuarioCreador equals usuario.IdUsuario
+                    where propuesta.Estado == 1
+                    orderby propuesta.Valoracion descending
+                    select propuesta).Take(5).ToList();
+        }
+
+        public Propuestas GetDetallePropuesta(int id)
+        {
+           return (from propuesta in ctx.Propuestas
+             join usuario in ctx.Usuarios
+             on propuesta.IdUsuarioCreador equals usuario.IdUsuario
+             where propuesta.IdPropuesta == id
+             select propuesta).SingleOrDefault();
+        } 
 
         public void ValorarPropuesta(FormCollection form)
         {
             PropuestasValoraciones pv = new PropuestasValoraciones();
             pv.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
             pv.IdPropuesta = Convert.ToInt32(form["IdPropuesta"]);
-            if (Convert.ToInt32(form["Valoracion"]) == 1)
+            int yaCalifico = ConfirmarSiUsuarioYaValoroEstaPropuesta(pv.IdUsuario, pv.IdPropuesta);
+            if (yaCalifico == 0)
             {
-                pv.Valoracion = true;
+                if (Convert.ToInt32(form["Valoracion"]) == 1)
+                {
+                    pv.Valoracion = true;
+                }
+                else
+                {
+                    pv.Valoracion = false;
+                }
+                ctx.PropuestasValoraciones.Add(pv);
+                ctx.SaveChanges();
+                ActualizarValoracionPropuesta(pv.IdPropuesta);
+            }            
+        }
+
+        public int ConfirmarSiUsuarioYaValoroEstaPropuesta(int idUsuario,int idProp)
+        {
+            var resp = (from pv in ctx.PropuestasValoraciones
+                        where pv.IdPropuesta == idProp && pv.IdUsuario == idUsuario
+                        select pv).FirstOrDefault();
+            if (resp != null)
+            {
+                return 1;
             }
             else
             {
-                pv.Valoracion = false;
+                return 0;
             }
-           
-            ctx.PropuestasValoraciones.Add(pv);
-            ctx.SaveChanges(); 
-            ActualizarValoracionPropuesta(pv.IdPropuesta);
         }
 
         public void ActualizarValoracionPropuesta(int id)
@@ -49,7 +84,8 @@ namespace PracticaEF.Servicios
                 cantidad++;
                 suma += Convert.ToInt32(x.Valoracion);
             }
-            decimal Valoracion = cantidad / suma * 100;
+            
+            decimal Valoracion = (suma*100)/cantidad;
             p.Valoracion = Valoracion;
             ctx.SaveChanges();
         }
@@ -88,17 +124,17 @@ namespace PracticaEF.Servicios
             }
         }
 
-        public Propuestas getPropuesta(int id)
+        public Propuestas GetPropuesta(int id)
         {
            return (from propuesta in ctx.Propuestas
              where propuesta.IdPropuesta == id
              select propuesta).SingleOrDefault();
         }
 
-        public Object getPropuestaDonacion(int idProp, int tipoProp)
+        public Object GetPropuestaDonacion(int tipoProp, int idProp)
         {
-           
-            if(tipoProp == 1)
+
+            if (tipoProp == 1)
             {
                 return (from propuesta in ctx.PropuestasDonacionesMonetarias
                         where propuesta.IdPropuesta == idProp
@@ -120,7 +156,7 @@ namespace PracticaEF.Servicios
 
         }
 
-        public Object getTotalDonacion(object o, int tp)
+        public Object GetTotalDonacion(object o, int tp)
         {
             
             if (tp == 1)
@@ -173,7 +209,7 @@ namespace PracticaEF.Servicios
             return "error";
         }
 
-        public DonacionesInsumos getInsumos(int id)
+        public DonacionesInsumos GetInsumos(int id)
         {
             return (from d in ctx.DonacionesInsumos
                         where d.IdPropuestaDonacionInsumo == id
@@ -207,6 +243,7 @@ namespace PracticaEF.Servicios
                 d.IdPropuestaDonacionInsumo = Convert.ToInt32(form["IdPropuestaDonacionInsumo"]);
                 d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
                 d.Cantidad = Convert.ToInt32(form["Cantidad"]);
+                d.FechaCreacion = DateTime.Today;
                 ctx.DonacionesInsumos.Add(d);
                 ctx.SaveChanges();
                 return 1;
@@ -217,6 +254,7 @@ namespace PracticaEF.Servicios
                 d.IdPropuestaDonacionHorasTrabajo = Convert.ToInt32(form["IdPropuestaDonacionHorasTrabajo"]);
                 d.IdUsuario = Convert.ToInt32(form["IdUsuario"]);
                 d.Cantidad = Convert.ToInt32(form["Cantidad"]);
+                d.FechaCreacion = DateTime.Today;
                 ctx.DonacionesHorasTrabajo.Add(d);
                 ctx.SaveChanges();
                 return 1;
@@ -224,7 +262,7 @@ namespace PracticaEF.Servicios
             return 0;
         }
 
-        public List<Propuestas> getListaPropuestas()
+        public List<Propuestas> GetListaPropuestas()
         {
             return (from propuesta in ctx.Propuestas
                     where propuesta.Estado == 1

@@ -79,7 +79,7 @@ namespace TP_Final_2019_v._0.Controllers
                     }
 
                     ctx.SaveChanges();
-
+                    Session["session"] = ctx.Usuarios.Find(us.IdUsuario);
                     return RedirectToAction("Index");
                 }
                 else
@@ -120,109 +120,32 @@ namespace TP_Final_2019_v._0.Controllers
         [HttpPost]
         public ActionResult CrearPropuesta(CrearPropuesta cp, HttpPostedFileBase file)
         {
-            //contar la cantidad de propuestas activas que tiene el usuario si son >=5 ya no puede crear una nueva
             if (ModelState.IsValid)
             {
-                Propuestas p = new Propuestas();
                 Usuarios u = (Usuarios)Session["session"];
+                int resp = admin.CrearPropuestax(cp, file, u);
 
-                if (file != null && file.ContentLength > 0)
+                if (resp != 0)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Images/propuestas"), fileName);
-                    file.SaveAs(path);
-
-                    p.Nombre = cp.Nombre;
-                    p.Descripcion = cp.Descripcion;
-                    p.FechaFin = cp.FechaFin;
-                    p.TelefonoContacto = cp.TelefonoContacto;
-                    p.TipoDonacion = cp.TipoDonacion;
-                    p.Foto = fileName;
-                    p.IdUsuarioCreador = u.IdUsuario;
-                    p.Valoracion = 0;
-                    p.Estado = 1;
-                    p.FechaCreacion = DateTime.Today;
-
-                    ctx.Propuestas.Add(p);
-                    ctx.SaveChanges();
-
-                    if (cp.TipoDonacion == 1)
+                    if (resp == 1)
                     {
                         return View("TipoDonacionMonetaria");
                     }
-                    if (cp.TipoDonacion == 2)
+                    if (resp == 2)
                     {
                         return View("TipoDonacionInsumos");
                     }
-                    if (cp.TipoDonacion == 3)
+                    if (resp == 3)
                     {
                         return View("TipoDonacionHorasTrabajo");
                     }
                 }
-                return View();
+                ViewBag.MotivoError = "No hemos podido procesar la solicitud. Intentalo más tarde.";
+                return View("Error");
             }
-            return View();
+            ViewBag.MotivoError = "No hemos podido procesar la solicitud. Intentalo más tarde.";
+            return View("Error");
         }
-        /*[HttpPost]
-        public ActionResult CrearPropuesta(CrearPropuesta cp, HttpPostedFileBase file)
-        {
-            //contar la cantidad de propuestas activas que tiene el usuario si son >=5 ya no puede crear una nueva
-            if (ModelState.IsValid)
-            {
-                Propuestas p = new Propuestas();
-
-                if (file != null && file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Images/propuestas"), fileName);
-                    //file.SaveAs(path);
-
-                    p.Nombre = cp.Nombre;
-                    p.Descripcion = cp.Descripcion;
-                    p.FechaFin = cp.FechaFin;
-                    p.TelefonoContacto = cp.TelefonoContacto;
-                    p.TipoDonacion = cp.TipoDonacion;
-                    p.Foto = fileName;
-                    p.IdUsuarioCreador = cp.IdUsuarioCreador;
-                    p.Valoracion = 0;
-                    p.Estado = 1;
-                    p.FechaCreacion = DateTime.Today;
-
-                    //ctx.Propuestas.Add(p);
-                    //ctx.SaveChanges();
-
-                    ViewBag.TipoDonacion = cp.TipoDonacion;
-                    return View("TipoDonacion");
-                }
-                ViewBag.MotivoError = "No se hemos podido crear la propuesta";
-                return View("../Shared/Error");
-            }
-            ViewBag.MotivoError = "El formato de modelo no es válido";
-            return View("../Shared/Error");
-        }
-        [HttpGet]
-        public ActionResult TipoDonacion()
-        {
-            return View();
-        }
-
-         [HttpPost]
-        public string TipoDonacion(TipoDonacion td)
-        {
-               if(td.Td == 1)
-                {
-                    return "monetaria";
-                }
-                if (td.Td == 2)
-                {
-                    return "insumos";
-                }
-                if (td.Td == 3)
-                {
-                    return "horas trabajo";
-                }
-            return "error: " + td.Td + "string: " + td.ValorString + "valor: " + td.ValorInt;
-        }*/
         [HttpGet]
         public ActionResult TipoDonacionMonetaria()
         {
@@ -241,17 +164,8 @@ namespace TP_Final_2019_v._0.Controllers
             if (ModelState.IsValid)
             {
                 Usuarios u = (Usuarios)Session["session"];
-                var usua = (from prop in ctx.Propuestas
-                            where prop.IdUsuarioCreador == u.IdUsuario
-                            select prop.IdPropuesta).ToList().LastOrDefault();
-
-                PropuestasDonacionesMonetarias pm = new PropuestasDonacionesMonetarias();
-                pm.Dinero = td.Dinero;
-                pm.CBU = td.CBU;
-                pm.IdPropuesta = usua;
-                ctx.PropuestasDonacionesMonetarias.Add(pm);
-                ctx.SaveChanges();
-                ViewBag.IdPropuesta = usua;
+                int resp = admin.CargarPropuestaMonetaria(td, u);
+                ViewBag.IdPropuesta = resp;
                 return View("Referencias");
             }
             ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
@@ -276,16 +190,8 @@ namespace TP_Final_2019_v._0.Controllers
             if (ModelState.IsValid)
             {
                 Usuarios u = (Usuarios)Session["session"];
-                var usua = (from prop in ctx.Propuestas
-                            where prop.IdUsuarioCreador == u.IdUsuario
-                            select prop.IdPropuesta).ToList().LastOrDefault();
-                PropuestasDonacionesInsumos pi = new PropuestasDonacionesInsumos();
-                pi.Nombre = td.NombreInsumo;
-                pi.Cantidad = td.Cantidad;
-                pi.IdPropuesta = usua;
-                ctx.PropuestasDonacionesInsumos.Add(pi);
-                ctx.SaveChanges();
-                ViewBag.IdPropuesta = usua;
+                int resp = admin.CargarPropuestaInsumo(td, u);
+                ViewBag.IdPropuesta = resp;
                 return View("Referencias");
             }
             ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
@@ -310,16 +216,8 @@ namespace TP_Final_2019_v._0.Controllers
             if (ModelState.IsValid)
             {
                 Usuarios u = (Usuarios)Session["session"];
-                var usua = (from prop in ctx.Propuestas
-                            where prop.IdUsuarioCreador == u.IdUsuario
-                            select prop.IdPropuesta).ToList().LastOrDefault();
-                PropuestasDonacionesHorasTrabajo ph = new PropuestasDonacionesHorasTrabajo();
-                ph.CantidadHoras = td.CantidadHoras;
-                ph.Profesion = td.Profesion;
-                ph.IdPropuesta = usua;
-                ctx.PropuestasDonacionesHorasTrabajo.Add(ph);
-                ctx.SaveChanges();
-                ViewBag.IdPropuesta = usua;
+                int resp = admin.CargarPropuestaHorasTrabajo(td, u);
+                ViewBag.IdPropuesta = resp;
                 return View("Referencias");
             }
             ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
@@ -342,21 +240,12 @@ namespace TP_Final_2019_v._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                PropuestasReferencias ref1 = new PropuestasReferencias();
-                PropuestasReferencias ref2 = new PropuestasReferencias();
-                ref1.IdPropuesta = r.IdPropuesta;
-                ref1.Nombre = r.Nombre1;
-                ref1.Telefono = r.Telefono1;
-                ctx.PropuestasReferencias.Add(ref1);
-                ref2.IdPropuesta = r.IdPropuesta;
-                ref2.Nombre = r.Nombre2;
-                ref2.Telefono = r.Telefono2;
-                ctx.PropuestasReferencias.Add(ref2);
-                ctx.SaveChanges();
+                admin.CargarReferencias(r);
             }
             ViewBag.Mensaje = "Propuesta cargada exitosamente";
             return View("Finished");
         }
+
         /*-------------------Ver Propuesta y donaciones---------------------------*/
         public ActionResult Propuestas()
         {
@@ -367,7 +256,7 @@ namespace TP_Final_2019_v._0.Controllers
             else
             {
                 Usuarios u = (Usuarios)Session["session"];
-                List<Propuestas> lista = admin.getMisPropuestas(u.IdUsuario);
+                List<Propuestas> lista = admin.GetMisPropuestas(u.IdUsuario);
                 ViewBag.EstiloPagina = "single-page causes-page";
                 return View(lista);
             }
@@ -375,28 +264,28 @@ namespace TP_Final_2019_v._0.Controllers
         [HttpGet]
         public ActionResult VerDonacionesPropuesta(int id)
         {
-            var p = admin.getPropuesta(id);
+            var p = admin.GetPropuesta(id);
             ViewBag.Propuesta = p;
             if (p.TipoDonacion == 1)
             {
-                var tp = (PropuestasDonacionesMonetarias)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
-                var don = (List<DonacionesMonetarias>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionMonetaria);
+                var tp = (PropuestasDonacionesMonetarias)admin.GetTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesMonetarias>)admin.GetDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionMonetaria);
                 ViewBag.Propuesta = p;
                 ViewBag.TipoPropuesta = tp;
                 return View("VerDonacionesPropuestaMonetaria", don);
             }
             if (p.TipoDonacion == 2)
             {
-                var tp = (PropuestasDonacionesInsumos)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
-                var don = (List<DonacionesInsumos>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionInsumo);
+                var tp = (PropuestasDonacionesInsumos)admin.GetTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesInsumos>)admin.GetDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionInsumo);
                 ViewBag.Propuesta = p;
                 ViewBag.TipoPropuesta = tp;
                 return View("VerDonacionesPropuestaInsumos", don);
             }
             if (p.TipoDonacion == 3)
             {
-                var tp = (PropuestasDonacionesHorasTrabajo)admin.getTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
-                var don = (List<DonacionesHorasTrabajo>)admin.getDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionHorasTrabajo);
+                var tp = (PropuestasDonacionesHorasTrabajo)admin.GetTipoPropuesta(p.TipoDonacion, p.IdPropuesta);
+                var don = (List<DonacionesHorasTrabajo>)admin.GetDonacionesPropuesta(p.TipoDonacion, tp.IdPropuestaDonacionHorasTrabajo);
                 ViewBag.Propuesta = p;
                 ViewBag.TipoPropuesta = tp;
                 return View("VerDonacionesPropuestaHorasTrabajo", don);
@@ -404,111 +293,26 @@ namespace TP_Final_2019_v._0.Controllers
             ViewBag.MotivoError = "No hemos podido procesar la solicitud. Ocurrio un problema al visualizar las donaciones recibidas";
             return View("Error");
         }
+
         /*-------------------Modificar propuesta---------------------------*/
+        //devuelve a la vista la propuesta que se va a modificar
         [HttpGet]
         public ActionResult ModificarPropuesta(int id)
         {
-            var p = prop.getPropuesta(id);
+            var p = admin.GetPropuesta(id);
             if (p.TipoDonacion == 1)
             {
-                var tp = (PropuestasDonacionesMonetarias)prop.getPropuestaDonacion(id, p.TipoDonacion);
-                var r = prop.GetReferencias(p.IdPropuesta);
-                ModificarPropuesta mp = new ModificarPropuesta();
-                mp.IdPropuesta = tp.IdPropuesta;
-                mp.Nombre = p.Nombre;
-                mp.Descripcion = p.Descripcion;
-                mp.FechaFin = p.FechaFin;
-                mp.TelefonoContacto = p.TelefonoContacto;
-                mp.TipoDonacion = p.TipoDonacion;
-                mp.Foto = p.Foto;
-                mp.IdPropuestaDonacionMonetaria = tp.IdPropuestaDonacionMonetaria;
-                mp.Dinero = tp.Dinero;
-                mp.CBU = tp.CBU;
-                int i = 1;
-                foreach (var x in r)
-                {
-                    if (i == 1)
-                    {
-                        mp.IdReferencia1 = x.IdReferencia;
-                        mp.NombreRef1 = x.Nombre;
-                        mp.TelefonoRef1 = x.Telefono;
-                    }
-                    if (i == 2)
-                    {
-                        mp.IdReferencia2 = x.IdReferencia;
-                        mp.NombreRef2 = x.Nombre;
-                        mp.TelefonoRef2 = x.Telefono;
-                    }
-                    i++;
-                }
+               ModificarPropuesta mp = admin.GetModificarPropuestaMonetaria(p,id);
                 return View(mp);
             }
             if (p.TipoDonacion == 2)
             {
-                var tp = (PropuestasDonacionesInsumos)prop.getPropuestaDonacion(id, p.TipoDonacion);
-                var r = prop.GetReferencias(p.IdPropuesta);
-                ModificarPropuesta mp = new ModificarPropuesta();
-                mp.IdPropuesta = tp.IdPropuesta;
-                mp.Nombre = p.Nombre;
-                mp.Descripcion = p.Descripcion;
-                mp.FechaFin = p.FechaFin;
-                mp.TelefonoContacto = p.TelefonoContacto;
-                mp.TipoDonacion = p.TipoDonacion;
-                mp.Foto = p.Foto;
-                mp.IdPropuestaDonacionInsumo = tp.IdPropuestaDonacionInsumo;
-                mp.NombreItem = tp.Nombre;
-                mp.Cantidad = tp.Cantidad;
-                int i = 1;
-                foreach (var x in r)
-                {
-                    if (i == 1)
-                    {
-                        mp.IdReferencia1 = x.IdReferencia;
-                        mp.NombreRef1 = x.Nombre;
-                        mp.TelefonoRef1 = x.Telefono;
-                    }
-                    if (i == 2)
-                    {
-                        mp.IdReferencia2 = x.IdReferencia;
-                        mp.NombreRef2 = x.Nombre;
-                        mp.TelefonoRef2 = x.Telefono;
-                    }
-                    i++;
-                }
+                ModificarPropuesta mp = admin.GetModificarPropuestaInsumo(p, id);
                 return View(mp);
             }
             if (p.TipoDonacion == 3)
             {
-                var tp = (PropuestasDonacionesHorasTrabajo)prop.getPropuestaDonacion(id, p.TipoDonacion);
-                var r = prop.GetReferencias(p.IdPropuesta);
-                ModificarPropuesta mp = new ModificarPropuesta();
-                mp.IdPropuesta = tp.IdPropuesta;
-                mp.Nombre = p.Nombre;
-                mp.Descripcion = p.Descripcion;
-                mp.FechaFin = p.FechaFin;
-                mp.TelefonoContacto = p.TelefonoContacto;
-                mp.TipoDonacion = p.TipoDonacion;
-                mp.Foto = p.Foto;
-                mp.IdPropuestaDonacionHorasTrabajo = tp.IdPropuestaDonacionHorasTrabajo;
-                mp.CantidadHoras = tp.CantidadHoras;
-                mp.Profesion = tp.Profesion;
-                int i = 1;
-                foreach (var x in r)
-                {
-                    if (i == 1)
-                    {
-                        mp.IdReferencia1 = x.IdReferencia;
-                        mp.NombreRef1 = x.Nombre;
-                        mp.TelefonoRef1 = x.Telefono;
-                    }
-                    if (i == 2)
-                    {
-                        mp.IdReferencia2 = x.IdReferencia;
-                        mp.NombreRef2 = x.Nombre;
-                        mp.TelefonoRef2 = x.Telefono;
-                    }
-                    i++;
-                }
+                ModificarPropuesta mp = admin.GetModificarPropuestaHorasTrabajo(p, id);
                 return View(mp);
             }
             ViewBag.MotivoError = "No hemos podido procesar la solicitud. Modelo no válido";
@@ -517,80 +321,31 @@ namespace TP_Final_2019_v._0.Controllers
         [HttpPost]
         public ActionResult ModificarPropuesta(ModificarPropuesta mp, HttpPostedFileBase file)
         {
-            Propuestas p = ctx.Propuestas.Find(mp.IdPropuesta);
-
-            if (file != null && file.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Images/propuestas"), fileName);
-                file.SaveAs(path);
-                p.Foto = fileName;
-            }
-            p.Nombre = mp.Nombre;
-            p.Descripcion = mp.Descripcion;
-            if (mp.FechaFin.ToString() != "1/1/0001 00:00:00")
-            {
-                p.FechaFin = mp.FechaFin;
-            }
-            p.TelefonoContacto = mp.TelefonoContacto;
-            ctx.SaveChanges();
-
-            return RedirectToAction("ModificarPropuesta");
+            admin.ModificarPropuesta(mp, file);
+            return RedirectToAction("ModificarPropuesta/" +mp.IdPropuesta);
         }
         [HttpPost]
         public ActionResult ModificarPropuestaMonetaria(ModificarPropuesta mp)
         {
-            PropuestasDonacionesMonetarias p = ctx.PropuestasDonacionesMonetarias.Find(mp.IdPropuestaDonacionMonetaria);
-            p.Dinero = mp.Dinero;
-            p.CBU = mp.CBU;
-            ctx.SaveChanges();
+            admin.ModificarPropuestaCasoIndividual(mp);
             return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
         }
         [HttpPost]
         public ActionResult ModificarPropuestaInsumos(ModificarPropuesta mp)
         {
-            PropuestasDonacionesInsumos m = ctx.PropuestasDonacionesInsumos.Find(mp.IdPropuestaDonacionInsumo);
-            m.Nombre = mp.NombreItem;
-            m.Cantidad = mp.Cantidad;
-            ctx.SaveChanges();
+            admin.ModificarPropuestaCasoIndividual(mp);
             return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
         }
         [HttpPost]
         public ActionResult ModificarPropuestaHorasTrabajo(ModificarPropuesta mp)
         {
-            PropuestasDonacionesHorasTrabajo p = ctx.PropuestasDonacionesHorasTrabajo.Find(mp.IdPropuestaDonacionHorasTrabajo);
-            p.CantidadHoras = mp.CantidadHoras;
-            if (mp.Profesion != "")
-            {
-                p.Profesion = mp.Profesion;
-            }
-            ctx.SaveChanges();
+            admin.ModificarPropuestaCasoIndividual(mp);
             return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
         }
         [HttpPost]
         public ActionResult ModificarPropuestaReferencias(ModificarPropuesta mp)
         {
-            int j = 1;
-            List<PropuestasReferencias> p = prop.GetReferencias(mp.IdPropuesta);
-            foreach (var x in p)
-            {
-                if (j == 1)
-                {
-                    PropuestasReferencias pr = ctx.PropuestasReferencias.Find(x.IdReferencia);
-                    pr.Nombre = mp.NombreRef1;
-                    pr.Telefono = mp.TelefonoRef1;
-                    ctx.SaveChanges();
-                }
-                if (j == 2)
-                {
-                    PropuestasReferencias pr = ctx.PropuestasReferencias.Find(x.IdReferencia);
-                    pr.Nombre = mp.NombreRef2;
-                    pr.Telefono = mp.TelefonoRef2;
-                    ctx.SaveChanges();
-                }
-                j++;
-
-            }
+            admin.ModificarReferencias(mp);
             return RedirectToAction("ModificarPropuesta/" + mp.IdPropuesta);
         }
 
@@ -598,7 +353,7 @@ namespace TP_Final_2019_v._0.Controllers
         [HttpGet]
         public ActionResult Denuncias()
         {
-            List<PracticaEF.Data.Denuncias> lista = admin.GetDenuncias();
+            List<Denuncias> lista = admin.GetDenuncias();
             return View(lista);
         }
         [HttpGet]
@@ -632,6 +387,13 @@ namespace TP_Final_2019_v._0.Controllers
         {
             Session["session"] = null;
             return RedirectToAction("../Index/Inicio");
+        }
+
+        [HttpGet]
+        public ActionResult MiHistorialDonaciones(int id)
+        {
+            ViewBag.Usuario = id;
+            return View();
         }
     }
 }

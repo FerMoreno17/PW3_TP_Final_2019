@@ -26,7 +26,7 @@ namespace TP_Final_2019_v._0.Controllers
 
         public ActionResult Propuestas()
         {
-            List<Propuestas> lista = prop.getListaPropuestas();
+            List<Propuestas> lista = prop.GetListaPropuestas();
             ViewBag.EstiloPagina = "single-page causes-page";
             return View(lista);
         }
@@ -49,7 +49,7 @@ namespace TP_Final_2019_v._0.Controllers
                 var resp = user.Login(u);
                 if(resp == 1)   
                 {
-                    var usuario_encontrado = user.getUsuario(u);
+                    var usuario_encontrado = user.GetUsuario(u);
                     if(usuario_encontrado.Activo == true)
                     {
                         Session["session"] = usuario_encontrado;
@@ -96,18 +96,19 @@ namespace TP_Final_2019_v._0.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        Usuarios u = new Usuarios();
-                        u.Email = us.Email;
-                        u.Password = us.Password;
-                        u.FechaNacimiento = us.FechaNacimiento;
-                        user.Agregar(u);
-
-                        Usuarios encontrado = admin.BuscarPorEmail(us.Email);
-                        admin.EnviarMail(encontrado);
-
-
-                        ViewBag.Mensaje = "Usuario registrado exitosamente. Revisa tu correo para activar tu cuenta.";
-                        return View("Confirmaciones");
+                        var resp = user.RegistrarUsuario(us);
+                        if(resp == 1)
+                        {
+                            Usuarios encontrado = admin.BuscarPorEmail(us.Email);
+                            admin.EnviarMail(encontrado);
+                            ViewBag.Mensaje = "Usuario registrado exitosamente. Revisa tu correo para activar tu cuenta.";
+                            return View("Confirmaciones");
+                        }
+                        else
+                        {
+                            ViewBag.MotivoError = "Ha ocurrido un problema al intentar registrarte.";
+                            return View("../Shared/Error");
+                        }
                     }
                 }
             }
@@ -136,12 +137,7 @@ namespace TP_Final_2019_v._0.Controllers
             }
             else
             {
-                var p = (from propuesta in ctx.Propuestas
-                               join usuario in ctx.Usuarios
-                               on propuesta.IdUsuarioCreador equals usuario.IdUsuario
-                               where propuesta.IdPropuesta == id
-                               select propuesta
-                          ).SingleOrDefault();
+                var p = prop.GetDetallePropuesta(id);
                 ViewBag.EstiloPagina = "single-page causes-page";
                 return View(p);
             }
@@ -152,33 +148,33 @@ namespace TP_Final_2019_v._0.Controllers
         {
             int id = Convert.ToInt32(form["IdPropuesta"]);
             prop.ValorarPropuesta(form);
-            return RedirectToAction("/PropuestaDetalle/"+id);
+            return RedirectToAction("/PropuestaDetalle/" + id);
         }
 
         [HttpGet]
         public ActionResult GenerarDonacion(int id)
         {
-            var p = prop.getPropuesta(id);
+            var p = prop.GetPropuesta(id);
             if (p.TipoDonacion == 1)
             {
-                var pd = prop.getPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
-                var d = prop.getTotalDonacion(pd, p.TipoDonacion);
+                var pd = prop.GetPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
+                var d = prop.GetTotalDonacion(pd, p.TipoDonacion);
                 ViewBag.Propuesta = p;
                 ViewBag.PropuestaDonacion = pd;
                 ViewBag.SumaDonacion = d;
             }
             if (p.TipoDonacion == 2) 
             { 
-            var pd = prop.getPropuestaDonacion(p.TipoDonacion,p.IdPropuesta);
-            var d = prop.getTotalDonacion(pd,p.TipoDonacion);
+            var pd = prop.GetPropuestaDonacion(p.TipoDonacion,p.IdPropuesta);
+            var d = prop.GetTotalDonacion(pd,p.TipoDonacion);
             ViewBag.Propuesta = p;
             ViewBag.PropuestaDonacion = pd;
             ViewBag.SumaDonacion = d;
             }
             if (p.TipoDonacion == 3)
             {
-                var pd = prop.getPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
-                var d = prop.getTotalDonacion(pd, p.TipoDonacion);
+                var pd = prop.GetPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
+                var d = prop.GetTotalDonacion(pd, p.TipoDonacion);
                 ViewBag.Propuesta = p;
                 ViewBag.PropuestaDonacion = pd;
                 ViewBag.SumaDonacion = d;

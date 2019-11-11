@@ -33,6 +33,7 @@
     <Property Name="Cantidad" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PropuestasDonacionesHorasTrabajo" Relationship="Self.FK_DonacionesHorasTrabajo_PropuestasDonacionesHorasTrabajo" FromRole="DonacionesHorasTrabajo" ToRole="PropuestasDonacionesHorasTrabajo" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK_DonacionesHorasTrabajo_Usuarios" FromRole="DonacionesHorasTrabajo" ToRole="Usuarios" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="DonacionesInsumos">
     <Key>
@@ -44,6 +45,7 @@
     <Property Name="Cantidad" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PropuestasDonacionesInsumos" Relationship="Self.FK_DonacionesInsumos_PropuestasDonacionesInsumos" FromRole="DonacionesInsumos" ToRole="PropuestasDonacionesInsumos" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK_DonacionesInsumos_Usuarios" FromRole="DonacionesInsumos" ToRole="Usuarios" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="DonacionesMonetarias">
     <Key>

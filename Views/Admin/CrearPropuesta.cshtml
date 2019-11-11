@@ -4,7 +4,7 @@
     ViewBag.Title = "CrearPropuesta";
 
     var listado = new List<SelectListItem>()
-    {
+{
         new SelectListItem()
         {
             Text = "Monetaria",
@@ -23,47 +23,48 @@
     };
 }
 
-
-<section class="wrapper mt-0 h-100">
-    <div class="row content-panel h-100 justify-content-center">
-        <div class="col-lg-8 detailed">
-            <h4 class="mb">Crear Propuesta / Paso 1/3</h4>
-            <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Admin/CrearPropuesta" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    @Html.LabelFor(o => o.Nombre, "Título")
-                    @Html.TextBoxFor(o => o.Nombre, new { @class = "form-control" })
-                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Nombre)</p>
-                </div>
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    @Html.LabelFor(o => o.Descripcion, "Descripción")
-                    @Html.TextAreaFor(o => o.Descripcion, new { @class = "form-control" })
-                    <p class="text-danger">@Html.ValidationMessageFor(o => o.Descripcion)</p>
-                </div>
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    @Html.LabelFor(o => o.FechaFin, "Finaliza")
-                    @Html.TextBoxFor(o => o.FechaFin, new { type = "date", @class = "form-control" })
-                    <p class="text-danger">@Html.ValidationMessageFor(o => o.FechaFin)</p>
-                </div>
-                <div class="form-group">
-                    @Html.AntiForgeryToken()
-                    @Html.LabelFor(o => o.TelefonoContacto, "Teléfono")
-                    @Html.TextBoxFor(o => o.TelefonoContacto, new { type = "phone", @class = "form-control" })
-                    <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoContacto)</p>
-                </div>
-                <div class="form-group">
-                    @Html.DropDownListFor(o => o.TipoDonacion, listado, new { @class = "form-control" })
-                    <p class="text-danger">@Html.ValidationMessageFor(o => o.TipoDonacion)</p>
-                </div>
-                <div class="form-group">
-                    <input type="file" name="file" value="" />
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">Continuar</button>
-                </div>
-            </form>
+<h3><i class="fa fa-angle-right mt-0"></i> Crear propuesta - Descripción</h3>
+    <div class="row mt">
+        <div class="container">
+            <div class="content-panel">
+                <h6><i class="fa fa-angle-right ml-3"></i> Paso 1/3 - Cuentanos de qué se trata.</h6>
+                <hr>
+                <form class="col-sm-12 col-md-8 contact-form mt-2 mb-2" action="/Admin/CrearPropuesta" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.Nombre, "Título")
+                        @Html.TextBoxFor(o => o.Nombre, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.Nombre)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.Descripcion, "Descripción")
+                        @Html.TextAreaFor(o => o.Descripcion, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.Descripcion)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.FechaFin, "Finaliza")
+                        @Html.TextBoxFor(o => o.FechaFin, new { type = "date", @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.FechaFin)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.AntiForgeryToken()
+                        @Html.LabelFor(o => o.TelefonoContacto, "Teléfono")
+                        @Html.TextBoxFor(o => o.TelefonoContacto, new { type = "phone", @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.TelefonoContacto)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownListFor(o => o.TipoDonacion, listado, new { @class = "form-control" })
+                        <p class="text-danger">@Html.ValidationMessageFor(o => o.TipoDonacion)</p>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="file" value="" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Continuar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</section>

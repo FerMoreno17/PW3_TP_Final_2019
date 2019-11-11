@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PracticaEF.Data;
 using System.Security.Cryptography;
-
+using Models;
 
 namespace PracticaEF.Servicios
 {
@@ -14,19 +14,20 @@ namespace PracticaEF.Servicios
         SHA1CryptoServiceProvider crypt = new SHA1CryptoServiceProvider();
         private readonly Entities ctx = new Entities();
         
-        public void Agregar(Usuarios u)
-          {
-            Usuarios user = new Usuarios();
-            user.FechaNacimiento = u.FechaNacimiento;
-            user.Email = u.Email;
-            user.Password = u.Password;
-            user.TipoUsuario = 0;
-            user.FechaCreacion = DateTime.Today;
-            user.Activo = false;
-            user.Foto = "default.jpg";
-            user.Token = Guid.NewGuid().ToString();
-            ctx.Usuarios.Add(user);
+        public int RegistrarUsuario(RegistrarUsuario us)
+        {
+            Usuarios u = new Usuarios();
+            u.Email = us.Email;
+            u.Password = us.Password;
+            u.FechaNacimiento = us.FechaNacimiento;
+            u.TipoUsuario = 0;
+            u.FechaCreacion = DateTime.Today;
+            u.Activo = false;
+            u.Foto = "default.jpg";
+            u.Token = Guid.NewGuid().ToString();
+            ctx.Usuarios.Add(u);
             ctx.SaveChanges();
+            return 1;
         }
 
         public int Login(Usuarios u)
@@ -75,7 +76,7 @@ namespace PracticaEF.Servicios
             return 0;
         }
 
-        public Usuarios getUsuario(Usuarios u)
+        public Usuarios GetUsuario(Usuarios u)
         {
            var flag = ctx.Usuarios.Single(o => o.Email == u.Email);
             return flag;

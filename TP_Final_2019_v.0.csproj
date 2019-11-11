@@ -65,6 +65,9 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -74,6 +77,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -131,26 +140,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\SitesController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CrearPropuesta.cs" />
-    <Compile Include="Models\Denuncia.cs" />
-    <Compile Include="Models\DenunciasPropuestas.cs" />
-    <Compile Include="Models\Donacion.cs" />
-    <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\ModificarPropuesta.cs" />
-    <Compile Include="Models\ModificarUsuario.cs" />
-    <Compile Include="Models\Referencia.cs" />
-    <Compile Include="Models\RegistrarUsuario.cs" />
-    <Compile Include="Models\TipoDonacion.cs" />
-    <Compile Include="Models\TipoDonacionHorasTrabajo.cs" />
-    <Compile Include="Models\TipoDonacionInsumos.cs" />
-    <Compile Include="Models\TipoDonacionMonetaria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ImagenesUtility.cs" />
     <Compile Include="Utilities\StringUtility.cs" />
@@ -320,13 +316,10 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\CrearPropuesta.cshtml" />
     <Content Include="Views\Admin\Propuestas.cshtml" />
-    <Content Include="Views\Admin\CargarImagenPrueba.cshtml" />
     <Content Include="Views\Admin\TipoDonacionMonetaria.cshtml" />
     <Content Include="Views\Admin\Referencias.cshtml" />
     <Content Include="Views\Admin\TipoDonacionInsumos.cshtml" />
     <Content Include="Views\Admin\TipoDonacionHorasTrabajo.cshtml" />
-    <Content Include="Views\Admin\TipoDonacion.cshtml" />
-    <Content Include="Views\Pruebas\Index.cshtml" />
     <Content Include="Views\Admin\Finished.cshtml" />
     <Content Include="Views\Sites\PropuestaDetalle.cshtml" />
     <Content Include="Views\Sites\GenerarDonacion.cshtml" />
@@ -339,6 +332,7 @@
     <Content Include="Views\Admin\Error.cshtml" />
     <Content Include="Views\Admin\Denuncias.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Admin\MiHistorialDonaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,6 +354,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Api\Api.csproj">
+      <Project>{dea987f9-0b49-49d0-908d-e19c866a1f43}</Project>
+      <Name>Api</Name>
+    </ProjectReference>
     <ProjectReference Include="PracticaEF.Data\PracticaEF.Data.csproj">
       <Project>{ecb5d0a2-bdc4-43a8-b05d-02770e97321a}</Project>
       <Name>PracticaEF.Data</Name>

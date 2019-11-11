@@ -72,3 +72,15 @@ D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\EntityFramework.SqlServer.xml
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.ValueTuple.dll
 D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.ValueTuple.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.Net.Http.Formatting.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.Web.Http.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.Web.Http.WebHost.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.Net.Http.Formatting.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.Web.Http.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\System.Web.Http.WebHost.xml
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\es\System.Net.Http.Formatting.resources.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\es\System.Web.Http.resources.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\es\System.Web.Http.WebHost.resources.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\Api.dll
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\Api.pdb
+D:\Archivos de programas\Microsoft Visual Studio\Proyectos_Fer\TP_Final_2019_v.0\bin\Api.dll.config

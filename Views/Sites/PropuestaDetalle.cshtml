@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "PropuestaDetalle";
     PracticaEF.Data.Usuarios u = (PracticaEF.Data.Usuarios)Session["session"];
+    string clase = "";
 }
 
 <div class="mt-3 mb-3 pt-5 pb-5 bg-light">
@@ -17,7 +18,7 @@
                 </div><!-- .entry-content -->
                 <div class="row">
                     <div class="col-sm-2">
-                        <img src="~/Images/users/@Model.Usuarios.Foto" alt="Alternate Text" style="width:50px;height:50px;border-radius:100%;"/>
+                        <img src="~/Images/users/@Model.Usuarios.Foto" alt="Alternate Text" style="width:50px;height:50px;border-radius:100%;" />
                     </div>
                     <div class="col-9" style="font-size:0.8em;">
                         Creado por: @Model.Usuarios.Nombre @Model.Usuarios.Apellido<br>
@@ -25,16 +26,28 @@
                         Termina el: @Model.FechaFin
                     </div>
                 </div>
-                
-                <div class="fund-raised w-100 mt-5">
-                    <p>Aceptación</p>
-                    <div class="featured-fund-raised-bar barfiller">
-                        <div class="tipWrap">
-                            <span class="tip"></span>
-                        </div><!-- .tipWrap -->
-                        <span class="fill" data-percentage="@Model.Valoracion"></span>
-                    </div><!-- .fund-raised-bar -->
-                </div><!-- .fund-raised -->
+
+                @{
+                    if (Model.Valoracion >= 0 && Model.Valoracion < 33)
+                    {
+                        clase = "bg-danger";
+                    }
+                    if (Model.Valoracion >= 33 && Model.Valoracion < 66)
+                    {
+                        clase = "bg-warning";
+                    }
+                    if (Model.Valoracion >= 66)
+                    {
+                        clase = "bg-success";
+                    }
+
+                    <div class="entry-content">
+                        <p>Aceptación:</p>
+                        <div class="progress">
+                            <div class="progress-bar @clase" style="width:@Model.Valoracion%">@Model.Valoracion %</div>
+                        </div>
+                    </div><!-- .fund-raised -->
+                }
 
                 @{
                     if (@Model.IdUsuarioCreador != u.IdUsuario)
@@ -74,7 +87,7 @@
                     }
                 }
             </div><!-- .col -->
-
+            <p class="text-danger">@ViewBag.Mensaje</p>
             <div class="col-12 col-lg-5 order-1 order-lg-2">
                 <img src="~/Images/propuestas/@Model.Foto" alt="" style="width:100%">
             </div><!-- .col -->

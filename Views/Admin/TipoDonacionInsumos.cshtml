@@ -5,17 +5,13 @@
     ViewBag.Title = "TipoDonacion";
 }
 
-<div class="container h-100">
-    <div class="row h-100 justify-content-center">
-
-    </div>
-</div>
-<section class="wrapper mt-0 h-100">
-    <div class="row content-panel h-100 justify-content-center">
-        <div class="col-lg-8 detailed">
-            <h4 class="mb">Crear Propuesta / Paso 2/3</h4>
+<h3><i class="fa fa-angle-right mt-0"></i> Crear propuesta - Insumos</h3>
+<div class="row mt">
+    <div class="container">
+        <div class="content-panel">
+            <h6><i class="fa fa-angle-right ml-3"></i> Paso 2/3</h6>
+            <hr>
             <form class="col-sm-12 col-lg-7 contact-form mt-2 mb-2" action="/Admin/TipoDonacionInsumos" method="post">
-                <h3>Insumos</h3>
                 <div class="form-group">
                     @Html.AntiForgeryToken()
                     @Html.LabelFor(o => o.NombreInsumo, "Item (Ej.: Ladrillos, chapas, ventanas,etc.)")
@@ -28,7 +24,7 @@
                     @Html.TextBoxFor(o => o.Cantidad, new { @class = "form-control" })
                     <p class="text-danger">@Html.ValidationMessageFor(o => o.Cantidad)</p>
                 </div>
-                
+
                 <div class="form-group">
                     <a type="button" class="btn btn-info btn-circle btn-lg" href="/Admin/"><i class="	fa fa-plus-square"></i></a>
                     Agregar otro item
@@ -37,4 +33,4 @@
             </form>
         </div>
     </div>
-</section>
+</div>

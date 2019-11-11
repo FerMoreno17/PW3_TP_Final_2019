@@ -25,6 +25,7 @@
     <EntitySetMapping Name="DonacionesHorasTrabajo">
       <EntityTypeMapping TypeName="Model.DonacionesHorasTrabajo">
         <MappingFragment StoreEntitySet="DonacionesHorasTrabajo">
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="IdDonacionHorasTrabajo" ColumnName="IdDonacionHorasTrabajo" />
           <ScalarProperty Name="IdPropuestaDonacionHorasTrabajo" ColumnName="IdPropuestaDonacionHorasTrabajo" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -35,6 +36,7 @@
     <EntitySetMapping Name="DonacionesInsumos">
       <EntityTypeMapping TypeName="Model.DonacionesInsumos">
         <MappingFragment StoreEntitySet="DonacionesInsumos">
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="IdDonacionInsumo" ColumnName="IdDonacionInsumo" />
           <ScalarProperty Name="IdPropuestaDonacionInsumo" ColumnName="IdPropuestaDonacionInsumo" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />

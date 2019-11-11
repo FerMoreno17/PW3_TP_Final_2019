@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Propuestas";
     PracticaEF.Data.Usuarios u = (PracticaEF.Data.Usuarios)Session["session"];
+    int i = 0;
+    string clase = "";
 }
 
 <div class=" pt-3 bg-danger"></div>
@@ -36,9 +38,27 @@
                                         <p class="m-0">Creada por: @p.Usuarios.Nombre @p.Usuarios.Apellido</p>
                                     </div><!-- .entry-content -->
 
-                                    <div class="fund-raised w-100 mt-5">
-                                        <p>Aceptación:  @p.Valoracion %</p>
-                                    </div><!-- .fund-raised -->
+                                    @{
+                                        if (p.Valoracion >= 0 && p.Valoracion < 33)
+                                        {
+                                            clase = "bg-danger";
+                                        }
+                                        if (p.Valoracion >= 33 && p.Valoracion < 66)
+                                        {
+                                            clase = "bg-warning";
+                                        }
+                                        if (p.Valoracion >= 66)
+                                        {
+                                            clase = "bg-success";
+                                        }
+
+                                        <div class="entry-content">
+                                            <p>Aceptación:</p>
+                                            <div class="progress">
+                                                <div class="progress-bar @clase" style="width:@p.Valoracion%">@p.Valoracion %</div>
+                                            </div>
+                                        </div><!-- .fund-raised -->
+                                    }
 
                                     <div class="fund-raised w-100">
                                         <div class="entry-content">
@@ -48,6 +68,7 @@
                                 </div><!-- .cause-content-wrap -->
                             </div><!-- .cause-wrap -->
                         </div><!-- .col -->
+                        i++;
                         }
                     }
 
@@ -71,6 +92,28 @@
                                         <div class="entry-content">
                                             <p class="m-0">Creada por: @p.Usuarios.Nombre @p.Usuarios.Apellido</p>
                                         </div><!-- .entry-content -->
+
+                                        @{
+                                            if (p.Valoracion >= 0 && p.Valoracion < 33)
+                                            {
+                                                clase = "bg-danger";
+                                            }
+                                            if (p.Valoracion >= 33 && p.Valoracion < 66)
+                                            {
+                                                clase = "bg-warning";
+                                            }
+                                            if (p.Valoracion >= 66)
+                                            {
+                                                clase = "bg-success";
+                                            }
+
+                                            <div class="entry-content">
+                                                <p>Aceptación:</p>
+                                                <div class="progress">
+                                                    <div class="progress-bar @clase" style="width:@p.Valoracion%">@p.Valoracion %</div>
+                                                </div>
+                                            </div><!-- .fund-raised -->
+                                        }
 
                                         <div class="fund-raised w-100">
                                             <div class="entry-content">

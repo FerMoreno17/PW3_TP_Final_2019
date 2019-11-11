@@ -85,6 +85,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CrearPropuesta.cs" />
+    <Compile Include="Models\Denuncia.cs" />
+    <Compile Include="Models\DenunciasPropuestas.cs" />
+    <Compile Include="Models\Donacion.cs" />
+    <Compile Include="Models\DonacionApi.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\ModificarPropuesta.cs" />
+    <Compile Include="Models\ModificarUsuario.cs" />
+    <Compile Include="Models\Referencia.cs" />
+    <Compile Include="Models\RegistrarUsuario.cs" />
+    <Compile Include="Models\TipoDonacion.cs" />
+    <Compile Include="Models\TipoDonacionHorasTrabajo.cs" />
+    <Compile Include="Models\TipoDonacionInsumos.cs" />
+    <Compile Include="Models\TipoDonacionMonetaria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Propuestas.cs">
       <DependentUpon>Entities.tt</DependentUpon>

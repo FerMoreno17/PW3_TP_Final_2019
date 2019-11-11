@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Denuncias">
           <Key>
             <PropertyRef Name="IdDenuncia" />
@@ -32,6 +32,7 @@
           <Property Name="IdPropuestaDonacionHorasTrabajo" Type="int" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="DonacionesInsumos">
           <Key>
@@ -41,6 +42,7 @@
           <Property Name="IdPropuestaDonacionInsumo" Type="int" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="DonacionesMonetarias">
           <Key>
@@ -401,8 +403,7 @@
             <End Role="PropuestasValoraciones" EntitySet="PropuestasValoraciones" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -439,6 +440,7 @@
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PropuestasDonacionesHorasTrabajo" Relationship="Self.FK_DonacionesHorasTrabajo_PropuestasDonacionesHorasTrabajo" FromRole="DonacionesHorasTrabajo" ToRole="PropuestasDonacionesHorasTrabajo" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_DonacionesHorasTrabajo_Usuarios" FromRole="DonacionesHorasTrabajo" ToRole="Usuarios" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="DonacionesInsumos">
           <Key>
@@ -450,6 +452,7 @@
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PropuestasDonacionesInsumos" Relationship="Self.FK_DonacionesInsumos_PropuestasDonacionesInsumos" FromRole="DonacionesInsumos" ToRole="PropuestasDonacionesInsumos" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_DonacionesInsumos_Usuarios" FromRole="DonacionesInsumos" ToRole="Usuarios" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="DonacionesMonetarias">
           <Key>
@@ -864,6 +867,7 @@
           <EntitySetMapping Name="DonacionesHorasTrabajo">
             <EntityTypeMapping TypeName="Model.DonacionesHorasTrabajo">
               <MappingFragment StoreEntitySet="DonacionesHorasTrabajo">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="IdDonacionHorasTrabajo" ColumnName="IdDonacionHorasTrabajo" />
                 <ScalarProperty Name="IdPropuestaDonacionHorasTrabajo" ColumnName="IdPropuestaDonacionHorasTrabajo" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -874,6 +878,7 @@
           <EntitySetMapping Name="DonacionesInsumos">
             <EntityTypeMapping TypeName="Model.DonacionesInsumos">
               <MappingFragment StoreEntitySet="DonacionesInsumos">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="IdDonacionInsumo" ColumnName="IdDonacionInsumo" />
                 <ScalarProperty Name="IdPropuestaDonacionInsumo" ColumnName="IdPropuestaDonacionInsumo" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -993,7 +998,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
