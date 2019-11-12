@@ -154,10 +154,10 @@ namespace TP_Final_2019_v._0.Controllers
         [HttpGet]
         public ActionResult GenerarDonacion(int id)
         {
-            var p = prop.GetPropuesta(id);
+            Propuestas p = prop.GetPropuesta(id);
             if (p.TipoDonacion == 1)
             {
-                var pd = prop.GetPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
+                var pd = prop.GetPropuestaDonacion(p.IdPropuesta, p.TipoDonacion);
                 var d = prop.GetTotalDonacion(pd, p.TipoDonacion);
                 ViewBag.Propuesta = p;
                 ViewBag.PropuestaDonacion = pd;
@@ -165,7 +165,7 @@ namespace TP_Final_2019_v._0.Controllers
             }
             if (p.TipoDonacion == 2) 
             { 
-            var pd = prop.GetPropuestaDonacion(p.TipoDonacion,p.IdPropuesta);
+            var pd = prop.GetPropuestaDonacion(p.IdPropuesta, p.TipoDonacion);
             var d = prop.GetTotalDonacion(pd,p.TipoDonacion);
             ViewBag.Propuesta = p;
             ViewBag.PropuestaDonacion = pd;
@@ -173,7 +173,7 @@ namespace TP_Final_2019_v._0.Controllers
             }
             if (p.TipoDonacion == 3)
             {
-                var pd = prop.GetPropuestaDonacion(p.TipoDonacion, p.IdPropuesta);
+                var pd = prop.GetPropuestaDonacion(p.IdPropuesta, p.TipoDonacion);
                 var d = prop.GetTotalDonacion(pd, p.TipoDonacion);
                 ViewBag.Propuesta = p;
                 ViewBag.PropuestaDonacion = pd;
