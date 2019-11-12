@@ -13,7 +13,7 @@ namespace Api.Controllers
     public class HistorialDonacionesController : ApiController
     {
         DonacionService don = new DonacionService();
-        Entities ctx = new Entities();
+        Entities1 ctx = new Entities1();
 
         // GET: api/HistorialDonaciones/5
         public List<DonacionApi> Get(int id)

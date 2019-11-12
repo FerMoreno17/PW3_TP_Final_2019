@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities1">
     <EntitySetMapping Name="Denuncias">
       <EntityTypeMapping TypeName="Model.Denuncias">
         <MappingFragment StoreEntitySet="Denuncias">
@@ -25,22 +25,22 @@
     <EntitySetMapping Name="DonacionesHorasTrabajo">
       <EntityTypeMapping TypeName="Model.DonacionesHorasTrabajo">
         <MappingFragment StoreEntitySet="DonacionesHorasTrabajo">
-          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="IdDonacionHorasTrabajo" ColumnName="IdDonacionHorasTrabajo" />
           <ScalarProperty Name="IdPropuestaDonacionHorasTrabajo" ColumnName="IdPropuestaDonacionHorasTrabajo" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DonacionesInsumos">
       <EntityTypeMapping TypeName="Model.DonacionesInsumos">
         <MappingFragment StoreEntitySet="DonacionesInsumos">
-          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="IdDonacionInsumo" ColumnName="IdDonacionInsumo" />
           <ScalarProperty Name="IdPropuestaDonacionInsumo" ColumnName="IdPropuestaDonacionInsumo" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

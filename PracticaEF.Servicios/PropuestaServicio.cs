@@ -13,7 +13,7 @@ namespace PracticaEF.Servicios
 {
     public class PropuestaServicio
     {
-        private readonly Entities ctx = new Entities();
+        private readonly Entities1 ctx = new Entities1();
 
         public List<Propuestas> GetTopFive()
         {
@@ -131,7 +131,7 @@ namespace PracticaEF.Servicios
              select propuesta).SingleOrDefault();
         }
 
-        public Object GetPropuestaDonacion(int tipoProp, int idProp)
+        public Object GetPropuestaDonacion(int idProp, int tipoProp)
         {
 
             if (tipoProp == 1)
@@ -155,7 +155,7 @@ namespace PracticaEF.Servicios
             return "error";
 
         }
-
+       
         public Object GetTotalDonacion(object o, int tp)
         {
             

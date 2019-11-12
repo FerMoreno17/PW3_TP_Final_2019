@@ -13,7 +13,7 @@ namespace PracticaEF.Servicios
     public class AdministradorServicio
     {
 
-        private readonly Entities ctx = new Entities();
+        private readonly Entities1 ctx = new Entities1();
         private readonly PropuestaServicio prop = new PropuestaServicio();
 
         public Usuarios BuscarPorId(int id)
@@ -170,6 +170,40 @@ namespace PracticaEF.Servicios
                         select p).FirstOrDefault();
         }
 
+        public int GetPropuestasActivas(int id)
+        {
+            return (from p in ctx.Propuestas
+                    where p.IdUsuarioCreador == id
+                    select p).Count();
+        }
+
+        public int GetTotalDonacionesRecibidas(int id)
+        {
+            int mon = (from pm in ctx.PropuestasDonacionesMonetarias
+                       join dm in ctx.DonacionesMonetarias
+                       on pm.IdPropuestaDonacionMonetaria equals dm.IdPropuestaDonacionMonetaria
+                       join p in ctx.Propuestas
+                       on pm.IdPropuesta equals p.IdPropuesta
+                       where p.IdUsuarioCreador == id
+                       select dm).Count();
+            int ins = (from pi in ctx.PropuestasDonacionesInsumos
+                       join di in ctx.DonacionesInsumos
+                       on pi.IdPropuestaDonacionInsumo equals di.IdPropuestaDonacionInsumo
+                       join p in ctx.Propuestas
+                       on pi.IdPropuesta equals p.IdPropuesta
+                       where p.IdUsuarioCreador == id
+                       select di).Count();
+            int hst = (from phst in ctx.PropuestasDonacionesHorasTrabajo
+                       join dhst in ctx.DonacionesHorasTrabajo
+                       on phst.IdPropuestaDonacionHorasTrabajo equals dhst.IdPropuestaDonacionHorasTrabajo
+                       join p in ctx.Propuestas
+                       on phst.IdPropuesta equals p.IdPropuesta
+                       where p.IdUsuarioCreador == id
+                       select dhst).Count();
+            int total = mon + ins + hst;
+            return total;
+        }
+
         public int ContarPropuestasActivas(int id)
         {
             int cantidad = (from p in ctx.Propuestas
@@ -267,7 +301,7 @@ namespace PracticaEF.Servicios
 
         public ModificarPropuesta GetModificarPropuestaInsumo(Propuestas p, int id)
         {
-            var tp = (PropuestasDonacionesInsumos)prop.GetPropuestaDonacion(id, p.TipoDonacion);
+            var tp = (PropuestasDonacionesInsumos) prop.GetPropuestaDonacion(id, p.TipoDonacion);
             var r = prop.GetReferencias(p.IdPropuesta);
             ModificarPropuesta mp = new ModificarPropuesta();
             mp.IdPropuesta = tp.IdPropuesta;

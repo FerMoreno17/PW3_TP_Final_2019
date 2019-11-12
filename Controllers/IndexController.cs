@@ -8,7 +8,7 @@ namespace TP_Final_2019_v._0.Controllers
 {
     public class IndexController : Controller
     {
-        private readonly Entities ctx = new Entities();
+        private readonly Entities1 ctx = new Entities1();
         PropuestaServicio prop = new PropuestaServicio();
 
         // GET: Index

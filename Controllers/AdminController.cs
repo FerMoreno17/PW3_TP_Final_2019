@@ -15,7 +15,7 @@ namespace TP_Final_2019_v._0.Controllers
         AdministradorServicio admin = new AdministradorServicio();
         PropuestaServicio prop = new PropuestaServicio();
 
-        private readonly Entities ctx = new Entities();
+        private readonly Entities1 ctx = new Entities1();
 
         // GET: Admin
         public ActionResult Index()
@@ -26,6 +26,9 @@ namespace TP_Final_2019_v._0.Controllers
             }
             else
             {
+                Usuarios u = (Usuarios)Session["session"];
+                ViewBag.PropuestasActivas = admin.GetPropuestasActivas(u.IdUsuario);
+                ViewBag.DonacionesRecibidas = admin.GetTotalDonacionesRecibidas(u.IdUsuario);
                 return View();
 
             }

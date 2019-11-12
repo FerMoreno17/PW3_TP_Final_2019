@@ -12,7 +12,7 @@ namespace PracticaEF.Servicios
     public class UsuarioServicio
     {
         SHA1CryptoServiceProvider crypt = new SHA1CryptoServiceProvider();
-        private readonly Entities ctx = new Entities();
+        private readonly Entities1 ctx = new Entities1();
         
         public int RegistrarUsuario(RegistrarUsuario us)
         {

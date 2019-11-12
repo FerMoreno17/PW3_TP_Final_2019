@@ -12,7 +12,7 @@ namespace PracticaEF.Servicios
        
         public List<DonacionApi> MisDonacionesId(int id)
         {
-            Entities ctx = new Entities();
+            Entities1 ctx = new Entities1();
             List<DonacionApi> donacions = new List<DonacionApi>();
            
             #region Donaciones por Id Consulta
@@ -101,7 +101,7 @@ namespace PracticaEF.Servicios
 
         public decimal CalcularTotalDonadoPropuestaMon(int id)
         {
-            Entities ctx = new Entities();
+            Entities1 ctx = new Entities1();
 
             decimal contTotal = 0;
             var dlist = (from p in ctx.Propuestas
@@ -124,7 +124,7 @@ namespace PracticaEF.Servicios
         }
         public int CalcularTotalDonadoPropuestaIns(int id)
         {
-            Entities ctx = new Entities();
+            Entities1 ctx = new Entities1();
             int contTotal = 0;
             var dlist = (from p in ctx.Propuestas
                          join p_in in ctx.PropuestasDonacionesInsumos
@@ -145,7 +145,7 @@ namespace PracticaEF.Servicios
         }
         public int CalcularTotalDonadoPropuestaHrs(int id)
         {
-            Entities ctx = new Entities();
+            Entities1 ctx = new Entities1();
 
             int contTotal = 0;
             var dlist = (from p in ctx.Propuestas

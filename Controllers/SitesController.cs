@@ -15,7 +15,7 @@ namespace TP_Final_2019_v._0.Controllers
         readonly UsuarioServicio user = new UsuarioServicio();
         readonly PropuestaServicio prop = new PropuestaServicio();
         readonly AdministradorServicio admin = new AdministradorServicio();
-        readonly Entities ctx = new Entities();
+        readonly Entities1 ctx = new Entities1();
 
         // GET: AboutUs
         public ActionResult Nosotros()
