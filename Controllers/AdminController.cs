@@ -63,33 +63,28 @@ namespace TP_Final_2019_v._0.Controllers
                     file.SaveAs(path);
 
                     aCambiar.Foto = fileName;
-                    aCambiar.Nombre = recibido.Nombre;
-                    aCambiar.Apellido = recibido.Apellido;
-                    if (aCambiar.UserName == null)
-                    {
-                        string nameUser = recibido.Nombre +"."+recibido.Apellido;
-                        int contar = (from u in ctx.Usuarios
-                                      where u.UserName.Contains(nameUser)
-                                      select u.UserName).Count();
-                        if (contar == 0)
-                        {
-                            aCambiar.UserName = nameUser;
-                        }
-                        else
-                        {
-                            aCambiar.UserName = nameUser + "." + contar;
-                        }
-                    }
-
-                    ctx.SaveChanges();
-                    Session["session"] = ctx.Usuarios.Find(us.IdUsuario);
-                    return RedirectToAction("Index");
                 }
-                else
+                aCambiar.Nombre = recibido.Nombre;
+                aCambiar.Apellido = recibido.Apellido;
+                if (aCambiar.UserName == null)
                 {
-                    ViewBag.MotivoError = "No se hemos podido modficar tu perfil.";
-                    return View("Error");
+                    string nameUser = recibido.Nombre + "." + recibido.Apellido;
+                    int contar = (from u in ctx.Usuarios
+                                  where u.UserName.Contains(nameUser)
+                                  select u.UserName).Count();
+                    if (contar == 0)
+                    {
+                        aCambiar.UserName = nameUser;
+                    }
+                    else
+                    {
+                        aCambiar.UserName = nameUser + "." + contar;
+                    }
                 }
+
+                ctx.SaveChanges();
+                Session["session"] = ctx.Usuarios.Find(us.IdUsuario);
+                return RedirectToAction("Index");
             }
             ViewBag.MotivoError = "El formato de modelo no es válido.";
             return View("Error");

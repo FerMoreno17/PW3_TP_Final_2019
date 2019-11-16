@@ -39,7 +39,7 @@
                 data.forEach(function (item) {
                 var p = new Date(item.FechaDonacion);
                     cadena += `<tr  class="text-center">`
-                    cadena += `<td>${p.getDate()}-${p.getMonth()}-${p.getFullYear()}</td>`
+                    cadena += `<td>${p.getDate()}/${p.getMonth()+1}/${p.getFullYear()}</td>`
                     cadena += `<td>${item.Nombre}</td>`
                     
                     if (item.Tipo == 1) {
@@ -63,10 +63,13 @@
 
                         cadena += `<td>Cerrado</td>`
                     }
+                    if (item.Estado==2) {
 
+                        cadena += `<td>Baja por denuncia</td>`
+                    }
                     cadena += `<td>${item.TotalRecaudado}</td>`
                     cadena += `<td>${item.MiDonacion}</td>`
-                    cadena += `<td> <a href="/Detalle/Propuestas/${item.IdPropuesta}">Ir a Propuesta</a> </td>`
+                    cadena += `<td> <a href="/Sites/PropuestaDetalle/${item.IdPropuesta}">Ir a Propuesta</a> </td>`
                     cadena+=`</tr>`
 
                 });

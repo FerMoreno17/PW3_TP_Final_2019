@@ -14,34 +14,44 @@
                 @{
                     foreach (var p in Model)
                     {
-                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                            <div class="content-panel pn">
-                                <div id="blog-bg" style="background: url(../Images/propuestas/@p.Foto) no-repeat center top;">
-                                    @if (p.Estado == 1)
-                                    {
+                        if (p.Estado == 1)
+                        {
+                            <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                <div class="content-panel pn">
+                                    <div id="blog-bg" style="background: url(../Images/propuestas/@p.Foto) no-repeat center top;">
                                         <div class="badge badge-popular">ACTIVA</div>
-                                    }
-                                    else
-                                    {
-                                        <div class="badge badge-popular bg-danger">FINAL</div>
-                                    }
-                                    <div class="blog-title">@p.Nombre</div>
-                                </div>
-                                <div class="blog-text centered">
-                                    @if (p.Estado == 1)
-                                    {
+                                        <div class="blog-title">@p.Nombre</div>
+                                    </div>
+                                    <div class="blog-text centered">
                                         <a href="~/Admin/VerDonacionesPropuesta/@p.IdPropuesta" class="btn btn-round btn-warning">Ver donaciones</a>
                                         <a href="~/Admin/ModificarPropuesta/@p.IdPropuesta" class="btn btn-round btn-info">Modificar</a>
-                                    }
-                                    else
-                                    {
-                                        <a href="~/Admin/VerDonacionesPropuesta/@p.IdPropuesta" class="btn btn-round btn-warning">Ver donaciones</a>
-                                    }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            }
+                        }
                     }
-                }
+            </div>
+            <div class="row p-2">
+                @{ 
+                    foreach (var p2 in Model)
+                    {
+                        if (p2.Estado == 0 || p2.FechaFin==DateTime.Today.Date)
+                        {
+                            <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                <div class="content-panel pn">
+                                    <div id="blog-bg" style="background: url(../Images/propuestas/@p2.Foto) no-repeat center top;">
+                                        <div class="badge badge-popular bg-danger">FINAL</div>
+                                        <div class="blog-title">@p2.Nombre</div>
+                                    </div>
+                                    <div class="blog-text centered">
+                                    <a href="~/Admin/VerDonacionesPropuesta/@p2.IdPropuesta" class="btn btn-round btn-warning">Ver donaciones</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                 }
             </div>
         </div>
     </div>
